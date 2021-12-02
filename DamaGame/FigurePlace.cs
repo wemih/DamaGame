@@ -8,26 +8,25 @@ using System.Windows.Forms;
 
 namespace DamaGame
 {
-    class Figure
+    class FigurePlace
     {
         readonly private bool isDebugMode;
+        private Figure figure;
         private PictureBox picBox_ = new PictureBox();
         private bool isSelected;
 
-        public Figure(bool isDebugMode)
+        public FigurePlace(bool isDebugMode)
         {
             this.isDebugMode = isDebugMode;
+            this.picBox_.BackColor = Color.Transparent;
             this.picBox_.Size = new Size(50, 50);
-            this.picBox_.BackgroundImageLayout = ImageLayout.Stretch;
-            this.picBox_.Click += new EventHandler(FigureSelect);
+            this.picBox_.Click += new EventHandler(FigurePlaceSelect);
         }
 
-        private void FigureSelect(object sender, EventArgs e)
+        private void FigurePlaceSelect(object sender, EventArgs e)
         {
             this.isSelected = true;
-
-            //DEBUG
-            if (isDebugMode) Console.WriteLine($"Figure Selected");
+            if (isDebugMode) Console.WriteLine($"Figure place selected");
         }
 
         public void SetLocation(int x, int y)
@@ -40,17 +39,13 @@ namespace DamaGame
             this.picBox_.Enabled = false;
         }
 
-        public void Activate()
+        public void Active()
         {
             this.picBox_.Enabled = true;
         }
 
-        public void Remove()
-        {
-            this.picBox_.Visible = false;
-        }
-
         public PictureBox PicBox_ { get => picBox_; set => picBox_ = value; }
+        internal Figure Figure { get => figure; set => figure = value; }
         public bool IsSelected { get => isSelected; set => isSelected = value; }
     }
 }
