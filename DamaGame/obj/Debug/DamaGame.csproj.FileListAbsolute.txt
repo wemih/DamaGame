@@ -1,0 +1,9 @@
+C:\Users\Idon't care\source\repos\DamaGame\DamaGame\bin\Debug\DamaGame.exe.config
+C:\Users\Idon't care\source\repos\DamaGame\DamaGame\bin\Debug\DamaGame.exe
+C:\Users\Idon't care\source\repos\DamaGame\DamaGame\bin\Debug\DamaGame.pdb
+C:\Users\Idon't care\source\repos\DamaGame\DamaGame\obj\Debug\DamaGame.csproj.AssemblyReference.cache
+C:\Users\Idon't care\source\repos\DamaGame\DamaGame\obj\Debug\DamaGame.Properties.Resources.resources
+C:\Users\Idon't care\source\repos\DamaGame\DamaGame\obj\Debug\DamaGame.csproj.GenerateResource.cache
+C:\Users\Idon't care\source\repos\DamaGame\DamaGame\obj\Debug\DamaGame.csproj.CoreCompileInputs.cache
+C:\Users\Idon't care\source\repos\DamaGame\DamaGame\obj\Debug\DamaGame.exe
+C:\Users\Idon't care\source\repos\DamaGame\DamaGame\obj\Debug\DamaGame.pdb
