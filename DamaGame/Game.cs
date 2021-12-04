@@ -44,6 +44,11 @@ namespace DamaGame
             }
         }
 
+        private void ChangeNextPlayer()
+        {
+            this.nextPlayer = this.nextPlayer == this.playerOne ? this.playerTwo : this.playerOne;
+        }
+
         public bool IsDebugMode => isDebugMode;
 
         public Random Random => random;
