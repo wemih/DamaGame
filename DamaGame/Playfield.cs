@@ -11,46 +11,49 @@ namespace DamaGame
     class Playfield
     {
         readonly private bool isDebugMode;
-
-        private Figure[,] fields = new Figure[8, 8];
+        private bool isActive;
+        private Field[,] fields;
 
         public Playfield(bool isDebugMode)
         {
             this.isDebugMode = isDebugMode;
+            this.isActive = true;
+            this.fields = new Field[8, 8];
 
-            FillPlayField();
+            AddFields();
+            AddFigures();
 
             if (isDebugMode) Console.WriteLine($"Playfield created");
         }
 
-        private void FillPlayField()
+        private void AddFields()
+        {
+            for (int i = 0; i < this.fields.GetLength(0); i++)
+            {
+                for (int j = 0; j < this.fields.GetLength(1); j++)
+                {
+                    this.fields[i, j] = new Field(this.isDebugMode);
+                }
+            }
+
+            if (isDebugMode) Console.WriteLine($"Fields added to the playfield");
+        }
+
+        private void AddFigures()
         {
             int offSet = 1;
 
             for (int i = 0; i < this.fields.GetLength(0); i++)
             {
-                for (int j = offSet; j < this.fields.GetLength(1); j+=2)
+                for (int j = offSet; j < this.fields.GetLength(1); j += 2)
                 {
-                    if (i <= 2)
-                    {
-                        this.fields[i, j] = new Figure(this.isDebugMode, "dark");
-                    } else if (i >= 5)
-                    {
-                        this.fields[i ,j] = new Figure(this.isDebugMode, "light");
-                    }
+                    if (i <= 2) { this.fields[i, j].Figure = new Figure(this.isDebugMode, "dark"); }
+                    else if (i >= 5) { this.fields[i, j].Figure = new Figure(this.isDebugMode, "light"); }
                 }
                 offSet = offSet == 1 ? 0 : 1;
             }
-        }
 
-        private void SwitchPlayfieldActive()
-        {
-
-        }
-
-        private void Remove()
-        {
-
+            if (isDebugMode) Console.WriteLine($"Figures added to the playfield");
         }
     }
 }

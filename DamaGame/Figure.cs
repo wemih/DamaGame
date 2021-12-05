@@ -13,7 +13,9 @@ namespace DamaGame
         readonly private bool isDebugMode;
         private string color;
         private PictureBox picBox_ = new PictureBox();
+        private bool isSelectable;
         private bool isSelected;
+        private bool isDama;
 
         public Figure(bool isDebugMode, string color)
         {
@@ -35,16 +37,6 @@ namespace DamaGame
         public void SetLocation(int x, int y)
         {
             this.picBox_.Location = new Point(x, y);
-        }
-
-        public void Inactivate()
-        {
-            this.picBox_.Enabled = false;
-        }
-
-        public void Activate()
-        {
-            this.picBox_.Enabled = true;
         }
 
         public void Remove()

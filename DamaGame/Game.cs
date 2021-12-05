@@ -24,10 +24,10 @@ namespace DamaGame
 
             if (this.isDebugMode) Console.WriteLine($"Game is generated");
 
-            SelectStarterPlayer();
+            SelectStartingPlayer();
         }
 
-        private void SelectStarterPlayer()
+        private void SelectStartingPlayer()
         {
             int randomNumber = this.random.Next(1, 3);
 
@@ -42,6 +42,8 @@ namespace DamaGame
                 this.playerTwo.Color = "dark";
                 this.nextPlayer = this.playerTwo;
             }
+
+            if (this.isDebugMode) Console.WriteLine($"Starting player is {this.nextPlayer.Name}");
         }
 
         private void ChangeNextPlayer()
