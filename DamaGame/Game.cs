@@ -46,9 +46,29 @@ namespace DamaGame
             if (this.isDebugMode) Console.WriteLine($"Starting player is {this.nextPlayer.Name}");
         }
 
+        private void EnableFiguresForNextPlayer()
+        {
+            for (int i = 0; i < this.playfield.Fields.GetLength(0); i++)
+            {
+                for (int j = 0; j < this.playfield.Fields.GetLength(1); j++)
+                {
+                    if (this.playfield.Fields[i, j] != null && this.playfield.Fields[i,j].Figure.Color == this.nextPlayer.Color)
+                    {
+                        this.playfield.Fields[i, j].Figure.Enable();
+                    }
+                }
+            }
+
+            if (this.isDebugMode) Console.WriteLine($"{this.nextPlayer.Color} figures enabled for {this.nextPlayer.Name}");
+        }
+
+        
+
         private void ChangeNextPlayer()
         {
             this.nextPlayer = this.nextPlayer == this.playerOne ? this.playerTwo : this.playerOne;
+
+            if (this.isDebugMode) Console.WriteLine($"Next player changed to {this.nextPlayer.Name}");
         }
 
         public bool IsDebugMode => isDebugMode;

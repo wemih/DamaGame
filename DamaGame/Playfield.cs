@@ -18,7 +18,7 @@ namespace DamaGame
         {
             this.isDebugMode = isDebugMode;
             this.isActive = true;
-            this.fields = new Field[8, 8];
+            this.Fields = new Field[8, 8];
 
             AddFields();
             AddFigures();
@@ -26,13 +26,15 @@ namespace DamaGame
             if (isDebugMode) Console.WriteLine($"Playfield created");
         }
 
+        internal Field[,] Fields { get => fields; set => fields = value; }
+
         private void AddFields()
         {
-            for (int i = 0; i < this.fields.GetLength(0); i++)
+            for (int i = 0; i < this.Fields.GetLength(0); i++)
             {
-                for (int j = 0; j < this.fields.GetLength(1); j++)
+                for (int j = 0; j < this.Fields.GetLength(1); j++)
                 {
-                    this.fields[i, j] = new Field(this.isDebugMode);
+                    this.Fields[i, j] = new Field(this.isDebugMode);
                 }
             }
 
@@ -43,12 +45,12 @@ namespace DamaGame
         {
             int offSet = 1;
 
-            for (int i = 0; i < this.fields.GetLength(0); i++)
+            for (int i = 0; i < this.Fields.GetLength(0); i++)
             {
-                for (int j = offSet; j < this.fields.GetLength(1); j += 2)
+                for (int j = offSet; j < this.Fields.GetLength(1); j += 2)
                 {
-                    if (i <= 2) { this.fields[i, j].Figure = new Figure(this.isDebugMode, "dark"); }
-                    else if (i >= 5) { this.fields[i, j].Figure = new Figure(this.isDebugMode, "light"); }
+                    if (i <= 2) { this.Fields[i, j].Figure = new Figure(this.isDebugMode, "dark"); }
+                    else if (i >= 5) { this.Fields[i, j].Figure = new Figure(this.isDebugMode, "light"); }
                 }
                 offSet = offSet == 1 ? 0 : 1;
             }

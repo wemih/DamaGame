@@ -20,7 +20,7 @@ namespace DamaGame
         public Figure(bool isDebugMode, string color)
         {
             this.isDebugMode = isDebugMode;
-            this.color = color;
+            this.Color = color;
             this.picBox_.Size = new Size(50, 50);
             this.picBox_.BackgroundImageLayout = ImageLayout.Stretch;
             this.picBox_.Click += new EventHandler(FigureSelect);
@@ -39,6 +39,16 @@ namespace DamaGame
             this.picBox_.Location = new Point(x, y);
         }
 
+        public void Enable()
+        {
+            this.picBox_.Enabled = true;
+        }
+
+        public void Disable()
+        {
+            this.picBox_.Enabled = false;
+        }
+
         public void Remove()
         {
             this.picBox_.Visible = false;
@@ -46,5 +56,7 @@ namespace DamaGame
 
         public PictureBox PicBox_ { get => picBox_; set => picBox_ = value; }
         public bool IsSelected { get => isSelected; set => isSelected = value; }
+        public string Color { get => color; set => color = value; }
+        public bool IsDama { get => isDama; set => isDama = value; }
     }
 }
