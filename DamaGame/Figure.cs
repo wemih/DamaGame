@@ -11,12 +11,14 @@ namespace DamaGame
     class Figure
     {
         readonly private bool isDebugMode;
+        private string color;
         private PictureBox picBox_ = new PictureBox();
         private bool isSelected;
 
-        public Figure(bool isDebugMode)
+        public Figure(bool isDebugMode, string color)
         {
             this.isDebugMode = isDebugMode;
+            this.color = color;
             this.picBox_.Size = new Size(50, 50);
             this.picBox_.BackgroundImageLayout = ImageLayout.Stretch;
             this.picBox_.Click += new EventHandler(FigureSelect);

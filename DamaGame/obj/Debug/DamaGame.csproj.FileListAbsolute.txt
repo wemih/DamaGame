@@ -16,3 +16,4 @@ E:\school\DamaGame\DamaGame\obj\Debug\DamaGame.pdb
 E:\school\DamaGame\DamaGame\bin\Debug\DamaGame.exe.config
 E:\school\DamaGame\DamaGame\bin\Debug\DamaGame.exe
 E:\school\DamaGame\DamaGame\bin\Debug\DamaGame.pdb
+E:\school\DamaGame\DamaGame\obj\Debug\DamaGame.Form1.resources

@@ -16,6 +16,7 @@ namespace DamaGame
         {
             this.isDebugMode = isDebugMode;
             this.name = name;
+
             if (this.isDebugMode) Console.WriteLine($"Player generatred: {this.name}");
         }
         public string Name { get => name; set => name = value; }

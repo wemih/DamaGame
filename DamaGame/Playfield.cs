@@ -11,75 +11,46 @@ namespace DamaGame
     class Playfield
     {
         readonly private bool isDebugMode;
-        private PictureBox background = new PictureBox();
-        private FigurePlace[,] figurePlaces = new FigurePlace[8, 8];
+
+        private Figure[,] fields = new Figure[8, 8];
 
         public Playfield(bool isDebugMode)
         {
             this.isDebugMode = isDebugMode;
-            //this.Background.BackgroundImage = Properties.Resources.Board_table;
-            this.Background.Size = new Size(550, 550);
-            this.Background.Location = new Point(275, 100);
-            this.Background.BackgroundImageLayout = ImageLayout.Stretch;
-            this.Background.BackColor = Color.Transparent;
 
-            for (int i = 0; i < this.FigurePlaces.GetLength(0); i++)
-            {
-                for (int j = 0; j < this.FigurePlaces.GetLength(1); j++)
-                {
-                    this.FigurePlaces[i, j] = new FigurePlace(this.isDebugMode);
-                    //this.FigurePlaces[i, j].SetLocation(j * 122 + 63, i * 122 + 50);
-                    this.figurePlaces[i, j].Inactivate();
-                }
-            }
+            FillPlayField();
 
             if (isDebugMode) Console.WriteLine($"Playfield created");
         }
 
-        public void ActivateAllFigurePlaces(object sender, EventArgs e)
+        private void FillPlayField()
         {
-            for (int i = 0; i < this.FigurePlaces.GetLength(0); i++)
+            int offSet = 1;
+
+            for (int i = 0; i < this.fields.GetLength(0); i++)
             {
-                for (int j = 0; j < this.figurePlaces.GetLength(1); j++)
+                for (int j = offSet; j < this.fields.GetLength(1); j+=2)
                 {
-                    if (this.figurePlaces[i, j].Figure == null)
+                    if (i <= 2)
                     {
-                        this.figurePlaces[i, j].Active();
+                        this.fields[i, j] = new Figure(this.isDebugMode, "dark");
+                    } else if (i >= 5)
+                    {
+                        this.fields[i ,j] = new Figure(this.isDebugMode, "light");
                     }
                 }
+                offSet = offSet == 1 ? 0 : 1;
             }
         }
 
-        public void InactivateAllfigurePlaces(object sender, EventArgs e)
+        private void SwitchPlayfieldActive()
         {
-            for (int i = 0; i < this.figurePlaces.GetLength(0); i++)
-            {
-                for (int j = 0; j < this.figurePlaces.GetLength(1); j++)
-                {
-                    this.figurePlaces[i, j].Inactivate();
-                }
-            }
+
         }
 
-        public void Remove()
+        private void Remove()
         {
-            this.background.Visible = false;
 
-            for (int i = 0; i < this.figurePlaces.GetLength(0); i++)
-            {
-                for (int j = 0; j < this.figurePlaces.GetLength(1); j++)
-                {
-                    this.figurePlaces[i, j].PicBox_.Visible = false;
-
-                    if (this.figurePlaces[i, j].Figure != null)
-                    {
-                        this.figurePlaces[i, j].Figure.PicBox_.Visible = false;
-                    }
-                }
-            }
         }
-
-        public PictureBox Background { get => background; set => background = value; }
-        internal FigurePlace[,] FigurePlaces { get => figurePlaces; set => figurePlaces = value; }
     }
 }
