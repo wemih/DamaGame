@@ -72,7 +72,7 @@ namespace DamaGame
                     {
                         if (this.playfield.Fields[i, j].Figure.IsDama)
                         {
-
+                            //TODO dáma figurák lépése
                         } else
                         {
                             if (this.playfield.Fields[i, j].Figure.Color == "dark")
@@ -93,7 +93,6 @@ namespace DamaGame
                                         //TODO ütéskényszer
                                         this.playfield.Fields[i + 2, j + 2].Enable();
                                     }
-
                                 }
                             }
                             else if (this.playfield.Fields[i, j].Figure.Color == "light")
@@ -102,8 +101,42 @@ namespace DamaGame
                                 {
                                     if (j > 0 && this.playfield.Fields[i - 1, j - 1].Figure == null) { this.playfield.Fields[i - 1, j - 1].Enable(); }
                                     if (j > 0 && this.playfield.Fields[i - 1, j + 1].Figure == null) { this.playfield.Fields[i - 1, j + 1].Enable(); }
+
+                                    if (j > 1 && this.playfield.Fields[i - 1, j - 1].Figure != null && this.playfield.Fields[i - 1, j - 1].Figure.Color == "dark" && this.playfield.Fields[i - 2, j - 2].Figure == null)
+                                    {
+                                        //TODO ütéskényszer
+                                        this.playfield.Fields[i - 2, j - 2].Enable();
+                                    }
+
+                                    if (j < 6 && this.playfield.Fields[i - 1, j + 1].Figure != null && this.playfield.Fields[i - 1, j + 1].Figure.Color == "dark" && this.playfield.Fields[i - 2, j + 2].Figure == null)
+                                    {
+                                        //TODO ütéskényszer
+                                        this.playfield.Fields[i - 2, j + 2].Enable();
+                                    }
                                 }
                             }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void SearchDama()
+        {
+            for (int i = 0; i < this.playfield.Fields.GetLength(0); i++)
+            {
+                for (int j = 0; j < this.playfield.Fields.GetLength(1); j++)
+                {
+                    if (this.playfield.Fields[i, j].Figure != null)
+                    {
+                        if (this.playfield.Fields[i, j].Figure.Color == "dark" && i == 7)
+                        {
+                            this.playfield.Fields[i, j].Figure.IsDama = true;
+                        }
+
+                        if (this.playfield.Fields[i ,j].Figure.Color == "light" && i == 0)
+                        {
+                            this.playfield.Fields[i, j].Figure.IsDama = true;
                         }
                     }
                 }
