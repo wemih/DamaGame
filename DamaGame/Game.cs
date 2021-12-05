@@ -119,6 +119,8 @@ namespace DamaGame
                     }
                 }
             }
+
+            if (this.isDebugMode) Console.WriteLine($"Fields enabled for {this.nextPlayer.Name}");
         }
 
         private void SearchDama()
@@ -141,6 +143,8 @@ namespace DamaGame
                     }
                 }
             }
+
+            if (this.isDebugMode) Console.WriteLine($"Dama founded");
         }
 
         private void ChangeNextPlayer()
