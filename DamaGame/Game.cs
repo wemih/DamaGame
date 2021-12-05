@@ -62,7 +62,53 @@ namespace DamaGame
             if (this.isDebugMode) Console.WriteLine($"{this.nextPlayer.Color} figures enabled for {this.nextPlayer.Name}");
         }
 
-        
+        private void EnableFieldsForNextPlayer()
+        {
+            for (int i = 0; i < this.playfield.Fields.GetLength(0); i++)
+            {
+                for (int j = 0; j < this.playfield.Fields.GetLength(1); j++)
+                {
+                    if (this.playfield.Fields[i, j].Figure != null && this.playfield.Fields[i, j].Figure.IsSelected == true)
+                    {
+                        if (this.playfield.Fields[i, j].Figure.IsDama)
+                        {
+
+                        } else
+                        {
+                            if (this.playfield.Fields[i, j].Figure.Color == "dark")
+                            {
+                                if (i < 7)
+                                {
+                                    if (j > 0 && this.playfield.Fields[i + 1, j - 1].Figure == null) { this.playfield.Fields[i + 1, j - 1].Enable(); }
+                                    if (j < 7 && this.playfield.Fields[i + 1, j + 1].Figure == null) { this.playfield.Fields[i + 1, j + 1].Enable(); }
+
+                                    if (j > 1 && this.playfield.Fields[i + 1, j - 1].Figure != null && this.playfield.Fields[i + 1, j - 1].Figure.Color == "light" && this.playfield.Fields[i + 2, j - 2].Figure == null)
+                                    {
+                                        //TODO ütéskényszer
+                                        this.playfield.Fields[i + 2, j - 2].Enable();
+                                    }
+
+                                    if (j < 6 && this.playfield.Fields[i + 1, j + 1].Figure != null && this.playfield.Fields[i + 1, j + 1].Figure.Color == "light" && this.playfield.Fields[i + 2, j + 2].Figure == null)
+                                    {
+                                        //TODO ütéskényszer
+                                        this.playfield.Fields[i + 2, j + 2].Enable();
+                                    }
+
+                                }
+                            }
+                            else if (this.playfield.Fields[i, j].Figure.Color == "light")
+                            {
+                                if (i > 0)
+                                {
+                                    if (j > 0 && this.playfield.Fields[i - 1, j - 1].Figure == null) { this.playfield.Fields[i - 1, j - 1].Enable(); }
+                                    if (j > 0 && this.playfield.Fields[i - 1, j + 1].Figure == null) { this.playfield.Fields[i - 1, j + 1].Enable(); }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         private void ChangeNextPlayer()
         {
