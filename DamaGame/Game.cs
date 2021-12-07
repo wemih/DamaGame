@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace DamaGame
 {
@@ -79,9 +81,11 @@ namespace DamaGame
                             {
                                 if (i < 7)
                                 {
+                                    //Lépéskényszerek
                                     if (j > 0 && this.playfield.Fields[i + 1, j - 1].Figure == null) { this.playfield.Fields[i + 1, j - 1].Enable(); }
                                     if (j < 7 && this.playfield.Fields[i + 1, j + 1].Figure == null) { this.playfield.Fields[i + 1, j + 1].Enable(); }
 
+                                    //Ütéskényszerek
                                     if (j > 1 && this.playfield.Fields[i + 1, j - 1].Figure != null && this.playfield.Fields[i + 1, j - 1].Figure.Color == "light" && this.playfield.Fields[i + 2, j - 2].Figure == null)
                                     {
                                         //TODO ütéskényszer
@@ -99,9 +103,11 @@ namespace DamaGame
                             {
                                 if (i > 0)
                                 {
+                                    //Lépéskényszerek
                                     if (j > 0 && this.playfield.Fields[i - 1, j - 1].Figure == null) { this.playfield.Fields[i - 1, j - 1].Enable(); }
                                     if (j > 0 && this.playfield.Fields[i - 1, j + 1].Figure == null) { this.playfield.Fields[i - 1, j + 1].Enable(); }
 
+                                    //Ütéskényszerek
                                     if (j > 1 && this.playfield.Fields[i - 1, j - 1].Figure != null && this.playfield.Fields[i - 1, j - 1].Figure.Color == "dark" && this.playfield.Fields[i - 2, j - 2].Figure == null)
                                     {
                                         //TODO ütéskényszer
@@ -123,6 +129,28 @@ namespace DamaGame
             if (this.isDebugMode) Console.WriteLine($"Fields enabled for {this.nextPlayer.Name}");
         }
 
+        private void Move()
+        {
+            Point figureLocation;
+            Point fieldLocation;
+
+            for (int i = 0; i < this.playfield.Fields.GetLength(0); i++)
+            {
+                for (int j = 0; j < this.playfield.Fields.GetLength(1); j++)
+                {
+                    if (this.playfield.Fields[i, j].Figure != null && this.playfield.Fields[i, j].Figure.IsSelected)
+                    {
+                        figureLocation = this.playfield.Fields[i, j].Figure.PicBox_.Location;
+                    }
+
+                    if (this.playfield.Fields[i, j].Figure == null && this.playfield.Fields[i, j].IsSelected)
+                    {
+                        fieldLocation = this.playfield.Fields[i, j].Background.Location;
+                    }
+                }
+            }
+        }
+             
         private void SearchDama()
         {
             for (int i = 0; i < this.playfield.Fields.GetLength(0); i++)

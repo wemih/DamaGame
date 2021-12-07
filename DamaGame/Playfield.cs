@@ -57,5 +57,7 @@ namespace DamaGame
 
             if (isDebugMode) Console.WriteLine($"Figures added to the playfield");
         }
+
+
     }
 }
