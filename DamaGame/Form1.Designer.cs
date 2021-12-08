@@ -29,13 +29,34 @@ namespace DamaGame
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.CreateGameBTNDEBUG = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+            // 
+            // CreateGameBTNDEBUG
+            // 
+            this.CreateGameBTNDEBUG.Location = new System.Drawing.Point(192, 160);
+            this.CreateGameBTNDEBUG.Name = "CreateGameBTNDEBUG";
+            this.CreateGameBTNDEBUG.Size = new System.Drawing.Size(112, 32);
+            this.CreateGameBTNDEBUG.TabIndex = 0;
+            this.CreateGameBTNDEBUG.Text = "create gaem";
+            this.CreateGameBTNDEBUG.UseVisualStyleBackColor = true;
+            this.CreateGameBTNDEBUG.Click += new System.EventHandler(this.CreateGameBTNDEBUG_Click);
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.CreateGameBTNDEBUG);
+            this.Name = "Form1";
             this.Text = "Form1";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Button CreateGameBTNDEBUG;
     }
 }
 

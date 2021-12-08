@@ -12,9 +12,15 @@ namespace DamaGame
 {
     public partial class Form1 : Form
     {
+        Game game;
         public Form1()
         {
             InitializeComponent();
+        }
+
+        private void CreateGameBTNDEBUG_Click(object sender, EventArgs e)
+        {
+            this.game = new Game(true, "asd", "qwe"); 
         }
     }
 }

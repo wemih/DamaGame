@@ -7,3 +7,13 @@ C:\Users\Idon't care\source\repos\DamaGame\DamaGame\obj\Debug\DamaGame.csproj.Ge
 C:\Users\Idon't care\source\repos\DamaGame\DamaGame\obj\Debug\DamaGame.csproj.CoreCompileInputs.cache
 C:\Users\Idon't care\source\repos\DamaGame\DamaGame\obj\Debug\DamaGame.exe
 C:\Users\Idon't care\source\repos\DamaGame\DamaGame\obj\Debug\DamaGame.pdb
+E:\school\DamaGame\DamaGame\obj\Debug\DamaGame.csproj.AssemblyReference.cache
+E:\school\DamaGame\DamaGame\obj\Debug\DamaGame.Properties.Resources.resources
+E:\school\DamaGame\DamaGame\obj\Debug\DamaGame.csproj.GenerateResource.cache
+E:\school\DamaGame\DamaGame\obj\Debug\DamaGame.csproj.CoreCompileInputs.cache
+E:\school\DamaGame\DamaGame\obj\Debug\DamaGame.exe
+E:\school\DamaGame\DamaGame\obj\Debug\DamaGame.pdb
+E:\school\DamaGame\DamaGame\bin\Debug\DamaGame.exe.config
+E:\school\DamaGame\DamaGame\bin\Debug\DamaGame.exe
+E:\school\DamaGame\DamaGame\bin\Debug\DamaGame.pdb
+E:\school\DamaGame\DamaGame\obj\Debug\DamaGame.Form1.resources
