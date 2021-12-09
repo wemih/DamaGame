@@ -13,6 +13,7 @@ namespace DamaGame
         readonly private bool isDebugMode;
         private bool isActive;
         private Field[,] fields;
+        private PictureBox background;
 
         public Playfield(bool isDebugMode)
         {
@@ -58,6 +59,10 @@ namespace DamaGame
             if (isDebugMode) Console.WriteLine($"Figures added to the playfield");
         }
 
+        public void Remove()
+        {
+            this.background.Visible = false;
+        }
 
     }
 }

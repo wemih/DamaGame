@@ -30,6 +30,11 @@ namespace DamaGame
             this.background.Enabled = false;
         }
 
+        public void Remove()
+        {
+            this.background.Visible = false;
+        }
+
         public bool IsDebugMode => isDebugMode;
 
         public bool IsSelectable { get => isSelectable; set => isSelectable = value; }
