@@ -58,6 +58,33 @@ namespace DamaGame
             }
         }
 
+        private void AddEventListeners()
+        {
+            for (int i = 0; i < this.game.Playfield.Fields.GetLength(0); i++)
+            {
+                for (int j = 0; j < this.game.Playfield.Fields.GetLength(1); j++)
+                {
+                    this.game.Playfield.Fields[i, j].Background.Click += OnClickField;
+
+                    if (this.game.Playfield.Fields[i, j].Figure != null)
+                    {
+                        this.game.Playfield.Fields[i, j].Figure.Background.Click += OnClickFigure;
+                    }
+                }
+            }
+        }
+
+        private void OnClickFigure(object sender, EventArgs e)
+        {
+
+        }
+
+        private void OnClickField(object sender, EventArgs e)
+        {
+            AddNewGameElementsControlls();
+            RefreshGameViewHiearchy();
+        }
+
         private void SwitchMainMenuElements()
         {
             bool mainMenuIsVisible = NewGameButtonLBL.Visible;
