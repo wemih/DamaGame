@@ -18,6 +18,10 @@ namespace DamaGame
         public Field(bool isDebugMode)
         {
             this.isDebugMode = isDebugMode;
+
+            this.background = new PictureBox();
+            this.background.BackColor = Color.Transparent;
+            this.background.Size = new Size(85, 85);
         }
 
         public void Enable()

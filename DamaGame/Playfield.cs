@@ -20,6 +20,12 @@ namespace DamaGame
             this.isDebugMode = isDebugMode;
             this.isActive = true;
             this.Fields = new Field[8, 8];
+
+            this.Background = new PictureBox();
+            this.Background.BackgroundImage = Properties.Resources.board;
+            this.Background.Size = new Size(800, 800);
+            this.background.Location = new Point(300, 0);
+            this.Background.BackgroundImageLayout = ImageLayout.Stretch;
             
 
             AddFields();
@@ -29,6 +35,7 @@ namespace DamaGame
         }
 
         internal Field[,] Fields { get => fields; set => fields = value; }
+        public PictureBox Background { get => background; set => background = value; }
 
         private void AddFields()
         {
@@ -37,6 +44,7 @@ namespace DamaGame
                 for (int j = 0; j < this.Fields.GetLength(1); j++)
                 {
                     this.Fields[i, j] = new Field(this.isDebugMode);
+                    this.fields[i, j].Background.Location = new Point(j * 98 + 15, i * 98 + 15);
                 }
             }
 
@@ -62,7 +70,7 @@ namespace DamaGame
 
         public void Remove()
         {
-            this.background.Visible = false;
+            this.Background.Visible = false;
         }
 
     }

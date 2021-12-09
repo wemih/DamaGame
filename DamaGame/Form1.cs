@@ -21,9 +21,31 @@ namespace DamaGame
             isDebugMode = true;
         }
 
-        private void CreateGameBTNDEBUG_Click(object sender, EventArgs e)
+        private void RefreshGameViewHiearchy()
         {
-            this.game = new Game(true, "asd", "qwe");
+            for (int i = 0; i < this.game.Playfield.Fields.GetLength(0); i++)
+            {
+                for (int j = 0; j < this.game.Playfield.Fields.GetLength(1); j++)
+                {
+                    this.game.Playfield.Fields[i, j].Background.Parent = this.game.Playfield.Background;
+                }
+            }
+        }
+
+        private void AddNewGameElementsControlls()
+        {
+            //add board controll
+            this.Controls.Add(this.game.Playfield.Background);
+
+            //add fields controll
+            for (int i = 0; i < this.game.Playfield.Fields.GetLength(0); i++)
+            {
+                for (int j = 0; j < this.game.Playfield.Fields.GetLength(1); j++)
+                {
+                    this.Controls.Add(this.game.Playfield.Fields[i, j].Background);
+                    this.game.Playfield.Fields[i, j].Background.BringToFront();
+                }
+            }
         }
 
         private void SwitchMainMenuElements()
@@ -87,6 +109,9 @@ namespace DamaGame
             {
                 HideAllMenuElements(true);
                 game = new Game(this.isDebugMode, PlayerOneNameTBOX.Text, PlayerTwoNameTBOX.Text);
+                
+                AddNewGameElementsControlls();
+                RefreshGameViewHiearchy();
             } else
             {
                 PlayerNamesErrorLBL.Visible = true;
