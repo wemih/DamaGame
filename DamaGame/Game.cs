@@ -131,8 +131,8 @@ namespace DamaGame
 
         private void Move()
         {
-            Point figureLocation;
-            Point fieldLocation;
+            int[] figureLocation = new int[2];
+            Point fieldLocation = new Point();
 
             for (int i = 0; i < this.playfield.Fields.GetLength(0); i++)
             {
@@ -140,7 +140,8 @@ namespace DamaGame
                 {
                     if (this.playfield.Fields[i, j].Figure != null && this.playfield.Fields[i, j].Figure.IsSelected)
                     {
-                        figureLocation = this.playfield.Fields[i, j].Figure.PicBox_.Location;
+                        figureLocation[0] = i;
+                        figureLocation[1] = j;
                     }
 
                     if (this.playfield.Fields[i, j].Figure == null && this.playfield.Fields[i, j].IsSelected)
@@ -149,6 +150,7 @@ namespace DamaGame
                     }
                 }
             }
+            this.playfield.Fields[figureLocation[0], figureLocation[1]].Figure.PicBox_.Location = fieldLocation;
         }
              
         private void SearchDama()
