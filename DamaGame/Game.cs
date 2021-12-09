@@ -29,6 +29,11 @@ namespace DamaGame
             SelectStartingPlayer();
         }
 
+        private void OnClickFigure(object sender, EventArgs e)
+        {
+            
+        }
+
         private void SelectStartingPlayer()
         {
             int randomNumber = this.random.Next(1, 3);
@@ -150,7 +155,7 @@ namespace DamaGame
                     }
                 }
             }
-            this.playfield.Fields[figureLocation[0], figureLocation[1]].Figure.PicBox_.Location = fieldLocation;
+            this.playfield.Fields[figureLocation[0], figureLocation[1]].Figure.Background.Location = fieldLocation;
         }
              
         private void SearchDama()

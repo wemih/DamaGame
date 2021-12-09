@@ -22,11 +22,10 @@ namespace DamaGame
             this.Fields = new Field[8, 8];
 
             this.Background = new PictureBox();
-            this.Background.BackgroundImage = Properties.Resources.board;
             this.Background.Size = new Size(800, 800);
             this.background.Location = new Point(300, 0);
             this.Background.BackgroundImageLayout = ImageLayout.Stretch;
-            
+            this.Background.BackgroundImage = Properties.Resources.board;
 
             AddFields();
             AddFigures();

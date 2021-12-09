@@ -20,8 +20,18 @@ namespace DamaGame
             this.isDebugMode = isDebugMode;
 
             this.background = new PictureBox();
-            this.background.BackColor = Color.Transparent;
             this.background.Size = new Size(85, 85);
+            this.background.BackColor = Color.Transparent;
+
+            this.background.Click += new EventHandler(FieldSelect);
+        }
+
+        private void FieldSelect(object sender, EventArgs e)
+        {
+            this.isSelected = true;
+
+            //DEBUG
+            if (isDebugMode) Console.WriteLine($"Field Selected");
         }
 
         public void Enable()

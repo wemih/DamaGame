@@ -28,6 +28,11 @@ namespace DamaGame
                 for (int j = 0; j < this.game.Playfield.Fields.GetLength(1); j++)
                 {
                     this.game.Playfield.Fields[i, j].Background.Parent = this.game.Playfield.Background;
+
+                    if (this.game.Playfield.Fields[i, j].Figure != null)
+                    {
+                        this.game.Playfield.Fields[i, j].Figure.Background.Parent = this.game.Playfield.Fields[i, j].Background;
+                    }
                 }
             }
         }
@@ -37,13 +42,18 @@ namespace DamaGame
             //add board controll
             this.Controls.Add(this.game.Playfield.Background);
 
-            //add fields controll
+            //add fields and figures controll
             for (int i = 0; i < this.game.Playfield.Fields.GetLength(0); i++)
             {
                 for (int j = 0; j < this.game.Playfield.Fields.GetLength(1); j++)
                 {
                     this.Controls.Add(this.game.Playfield.Fields[i, j].Background);
                     this.game.Playfield.Fields[i, j].Background.BringToFront();
+
+                    if (this.game.Playfield.Fields[i, j].Figure != null)
+                    {
+                        this.game.Playfield.Fields[i, j].Figure.Background.BringToFront();
+                    }
                 }
             }
         }
