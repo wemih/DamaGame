@@ -20,6 +20,7 @@ namespace DamaGame
             this.isDebugMode = isDebugMode;
             this.isActive = true;
             this.Fields = new Field[8, 8];
+            
 
             AddFields();
             AddFigures();

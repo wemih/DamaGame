@@ -39,11 +39,58 @@ namespace DamaGame
             if (isDebugMode) Console.WriteLine($"Main menu elements visible set to {mainMenuIsVisible}");
         }
 
+        private void HideAllMenuElements(bool hideMainMenu)
+        {
+            if (hideMainMenu)
+            {
+                NewGameButtonLBL.Visible = false;
+                AboutButtonLBL.Visible = false;
+                HowToPlayButtonLBL.Visible = false;
+                ExitButtonLBL.Visible = false;
+            }
+
+            //new game
+            PlayerNamesLBL.Visible = false;
+            PlayerOneNameTBOX.Visible = false;
+            PlayerTwoNameTBOX.Visible = false;
+            PlayerNamesErrorLBL.Visible = false;
+            StartButtonLBL.Visible = false;
+
+            //about
+
+            //how to play
+
+            //misc.
+        }
+
 
         //Main menu
         private void NewGameButtonLBL_Click(object sender, EventArgs e)
         {
-            
+            if (game != null)
+            {
+                //handle game clear
+            }
+
+            HideAllMenuElements(false);
+
+            PlayerNamesLBL.Visible = true;
+            PlayerOneNameTBOX.Visible = true;
+            PlayerTwoNameTBOX.Visible = true;
+            PlayerNamesErrorLBL.Visible = false;
+            StartButtonLBL.Visible = true;
+        }
+
+        private void StartButtonLBL_Click(object sender, EventArgs e)
+        {
+            if (NameIsValid(PlayerOneNameTBOX.Text, PlayerTwoNameTBOX.Text))
+            {
+                HideAllMenuElements(true);
+                game = new Game(this.isDebugMode, PlayerOneNameTBOX.Text, PlayerTwoNameTBOX.Text);
+            } else
+            {
+                PlayerNamesErrorLBL.Visible = true;
+            }
         }
 
         private void HowToPlayButtonLBL_Click(object sender, EventArgs e)
@@ -54,6 +101,17 @@ namespace DamaGame
         private void AboutButtonLBL_Click(object sender, EventArgs e)
         {
 
+        }
+
+        //---------------Checkings-------------------
+        private bool NameIsValid (string playerOneName, string playerTwoName)
+        {
+            return playerOneName != "" && playerTwoName != "" ? true : false;
+        }
+
+        private bool GameIsStarted()
+        {
+            return this.game != null;
         }
 
         private void ExitButtonLBL_Click(object sender, EventArgs e)
@@ -68,5 +126,7 @@ namespace DamaGame
 
             return base.ProcessCmdKey(ref msg, keyData);
         }
+
+        
     }
 }
