@@ -12,8 +12,7 @@ namespace DamaGame
     {
         readonly private bool isDebugMode;
         private string color;
-        private PictureBox picBox_ = new PictureBox();
-        private bool isSelectable;
+        private PictureBox background;
         private bool isSelected;
         private bool isDama;
 
@@ -21,9 +20,13 @@ namespace DamaGame
         {
             this.isDebugMode = isDebugMode;
             this.Color = color;
-            this.picBox_.Size = new Size(50, 50);
-            this.picBox_.BackgroundImageLayout = ImageLayout.Stretch;
-            this.picBox_.Click += new EventHandler(FigureSelect);
+
+            this.background = new PictureBox();
+            this.background.Size = new Size(85, 85);
+            this.background.BackgroundImageLayout = ImageLayout.Stretch;
+            this.background.BackgroundImage = this.color == "dark" ? Properties.Resources.figure_1 : Properties.Resources.figure_0;
+
+            this.background.Click += new EventHandler(FigureSelect);
         }
 
         private void FigureSelect(object sender, EventArgs e)
@@ -34,27 +37,22 @@ namespace DamaGame
             if (isDebugMode) Console.WriteLine($"Figure Selected");
         }
 
-        public void SetLocation(int x, int y)
-        {
-            this.picBox_.Location = new Point(x, y);
-        }
-
         public void Enable()
         {
-            this.picBox_.Enabled = true;
+            this.background.Enabled = true;
         }
 
         public void Disable()
         {
-            this.picBox_.Enabled = false;
+            this.background.Enabled = false;
         }
 
         public void Remove()
         {
-            this.picBox_.Visible = false;
+            this.background.Visible = false;
         }
 
-        public PictureBox PicBox_ { get => picBox_; set => picBox_ = value; }
+        public PictureBox Background { get => background; set => background = value; }
         public bool IsSelected { get => isSelected; set => isSelected = value; }
         public string Color { get => color; set => color = value; }
         public bool IsDama { get => isDama; set => isDama = value; }

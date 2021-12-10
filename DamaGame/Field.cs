@@ -18,6 +18,20 @@ namespace DamaGame
         public Field(bool isDebugMode)
         {
             this.isDebugMode = isDebugMode;
+
+            this.background = new PictureBox();
+            this.background.Size = new Size(85, 85);
+            this.background.BackColor = Color.Transparent;
+
+            this.background.Click += new EventHandler(FieldSelect);
+        }
+
+        private void FieldSelect(object sender, EventArgs e)
+        {
+            this.isSelected = true;
+
+            //DEBUG
+            if (isDebugMode) Console.WriteLine($"Field Selected");
         }
 
         public void Enable()
@@ -28,6 +42,11 @@ namespace DamaGame
         public void Disable()
         {
             this.background.Enabled = false;
+        }
+
+        public void Remove()
+        {
+            this.background.Visible = false;
         }
 
         public bool IsDebugMode => isDebugMode;

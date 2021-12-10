@@ -26,7 +26,34 @@ namespace DamaGame
 
             if (this.isDebugMode) Console.WriteLine($"Game is generated");
 
+            AddEventListeners();
             SelectStartingPlayer();
+        }
+
+        private void AddEventListeners()
+        {
+            for (int i = 0; i < this.playfield.Fields.GetLength(0); i++)
+            {
+                for (int j = 0; j < this.playfield.Fields.GetLength(1); j++)
+                {
+                    this.playfield.Fields[i, j].Background.Click += OnClickField;
+
+                    if (this.playfield.Fields[i, j].Figure != null)
+                    {
+                        this.playfield.Fields[i, j].Figure.Background.Click += OnClickFigure;
+                    }
+                }
+            }
+        }
+
+        private void OnClickFigure(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void OnClickField(object sender, EventArgs e)
+        {
+            Move();
         }
 
         private void SelectStartingPlayer()
@@ -131,8 +158,9 @@ namespace DamaGame
 
         private void Move()
         {
-            Point figureLocation;
-            Point fieldLocation;
+            int[] selectedFigureLocation = new int[2];
+            int[] targetFieldLocation = new int[2];
+            Point fieldCoords = new Point();
 
             for (int i = 0; i < this.playfield.Fields.GetLength(0); i++)
             {
@@ -140,14 +168,39 @@ namespace DamaGame
                 {
                     if (this.playfield.Fields[i, j].Figure != null && this.playfield.Fields[i, j].Figure.IsSelected)
                     {
-                        figureLocation = this.playfield.Fields[i, j].Figure.PicBox_.Location;
+                        selectedFigureLocation[0] = i;
+                        selectedFigureLocation[1] = j;
                     }
 
                     if (this.playfield.Fields[i, j].Figure == null && this.playfield.Fields[i, j].IsSelected)
                     {
-                        fieldLocation = this.playfield.Fields[i, j].Background.Location;
+                        targetFieldLocation[0] = i;
+                        targetFieldLocation[1] = j;
                     }
                 }
+            }
+            //remove in view
+            this.playfield.Fields[selectedFigureLocation[0], selectedFigureLocation[1]].Figure.Remove();
+
+            //move in matrix
+            this.playfield.Fields[targetFieldLocation[0], targetFieldLocation[1]].Figure = this.playfield.Fields[selectedFigureLocation[0], selectedFigureLocation[1]].Figure;
+            this.playfield.Fields[selectedFigureLocation[0], selectedFigureLocation[1]].Figure = null;
+
+            Console.WriteLine("Figure moved");
+
+            for (int i = 0; i < this.playfield.Fields.GetLength(0); i++)
+            {
+                for (int j = 0; j < this.playfield.Fields.GetLength(1); j++)
+                {
+                    if (this.playfield.Fields[i, j].Figure != null)
+                    {
+                        Console.Write("(X)");
+                    } else
+                    {
+                        Console.Write("(O)");
+                    }
+                }
+                Console.WriteLine("");
             }
         }
              
@@ -171,7 +224,6 @@ namespace DamaGame
                     }
                 }
             }
-
             if (this.isDebugMode) Console.WriteLine($"Dama founded");
         }
 
