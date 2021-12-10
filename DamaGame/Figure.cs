@@ -21,10 +21,12 @@ namespace DamaGame
             this.isDebugMode = isDebugMode;
             this.Color = color;
 
-            this.background = new PictureBox();
-            this.background.Size = new Size(85, 85);
-            this.background.BackgroundImageLayout = ImageLayout.Stretch;
-            this.background.BackgroundImage = this.color == "dark" ? Properties.Resources.figure_1 : Properties.Resources.figure_0;
+            this.background = new PictureBox
+            {
+                Size = new Size(85, 85),
+                BackgroundImageLayout = ImageLayout.Stretch,
+                BackgroundImage = this.color == "dark" ? Properties.Resources.figure_1 : Properties.Resources.figure_0
+            };
 
             this.background.Click += new EventHandler(FigureSelect);
         }

@@ -13,7 +13,7 @@ namespace DamaGame
     public partial class Form1 : Form
     {
         Game game;
-        bool isDebugMode;
+        readonly bool isDebugMode;
         public Form1()
         {
             InitializeComponent();
@@ -223,7 +223,7 @@ namespace DamaGame
         //---------------Checkings-------------------
         private bool NameIsValid (string playerOneName, string playerTwoName)
         {
-            return playerOneName != "" && playerTwoName != "" ? true : false;
+            return playerOneName != "" && playerTwoName != "";
         }
 
         private bool GameIsStarted()
