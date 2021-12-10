@@ -37,6 +37,21 @@ namespace DamaGame
             }
         }
 
+        private void RefreshFiguresHiearchy()
+        {
+            for (int i = 0; i < this.game.Playfield.Fields.GetLength(0); i++)
+            {
+                for (int j = 0; j < this.game.Playfield.Fields.GetLength(1); j++)
+                {
+                    if (this.game.Playfield.Fields[i,j].Figure != null)
+                    {
+                        
+                    }
+                }
+            }
+            if (isDebugMode) Console.WriteLine($"Figures hiearchy refreshed");
+        }
+
         private void AddNewGameElementsControlls()
         {
             //add board controll
@@ -52,6 +67,7 @@ namespace DamaGame
 
                     if (this.game.Playfield.Fields[i, j].Figure != null)
                     {
+                        this.Controls.Add(this.game.Playfield.Fields[i, j].Figure.Background);
                         this.game.Playfield.Fields[i, j].Figure.Background.BringToFront();
                     }
                 }
@@ -72,6 +88,7 @@ namespace DamaGame
                     }
                 }
             }
+            if (isDebugMode) Console.WriteLine($"View event listeners added");
         }
 
         private void OnClickFigure(object sender, EventArgs e)
@@ -81,8 +98,7 @@ namespace DamaGame
 
         private void OnClickField(object sender, EventArgs e)
         {
-            AddNewGameElementsControlls();
-            RefreshGameViewHiearchy();
+            RefreshFiguresHiearchy();
         }
 
         private void SwitchMainMenuElements()
@@ -159,6 +175,7 @@ namespace DamaGame
                 
                 AddNewGameElementsControlls();
                 RefreshGameViewHiearchy();
+                AddEventListeners();
             } else
             {
                 PlayerNamesErrorLBL.Visible = true;
