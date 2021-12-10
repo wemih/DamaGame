@@ -117,4 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="htpLBL02.Text" xml:space="preserve">
+    <value>A játék célja:
+
+A játék célja hogy elenfelünk összes korongját levegyük, vagy mozgásképtelenné tegyük.
+
+Nyitás:
+
+A játék egy 64 mezõbõl álló 8x8-as táblán indul. A fehér játékos kezd. Ezután a játékosok felváltva következnek. Lépést nem lehet kihagyni.</value>
+  </data>
+  <data name="htpLBL04.Text" xml:space="preserve">
+    <value>A lépés abból áll, hogy egyik korongunkat egy másik átlósan szomszédos mezõre helyezzük.
+
+Ütés:
+
+A dámajátékban úgy lehet ütni, hogy átugorjuk az ellenfél figuráját. Az ütés szabályai:
+        - Csak elõre lehet ütni, és csak akkor, ha az átugrandó figura mögötti mezõ üres.
+        - Ebbõl következõleg a tábla szélén álló figurát nem lehet leütni.
+        - Nem lehet leütni saját figuránkat, és leütés nélkül átugrani sem.
+        - A klasszikus dámajáték szabályai szerint az ütés kötelezõ. Ez azt jelenti, hogy ha a soron következõ játékosnak ütési lehetõsége van, mindenképpen ütnie kell; természetesen õ választ a lehetséges ütések közül, ha több figurájának is módja van ütni, illetve ugyanaz a figura több irányba üthet.
+
+
+A Dáma:
+
+       Az a figura, amely elérte a tábla szemközti sorát dámává lép elõ.
+       A dáma speciális tulajdonsága hogy visszafelé is léphet és üthet.
+
+A játék vége
+
+       Gyõzelem:
+
+              Az a játékos nyer aki ellenfelét összes bábujától megszabadította
+
+       Vereség:
+
+              Az a játékos aki nem tud érvényes lépést véghezvinni, veszít.</value>
+  </data>
 </root>
