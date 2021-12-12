@@ -19,9 +19,11 @@ namespace DamaGame
         {
             this.isDebugMode = isDebugMode;
 
-            this.background = new PictureBox();
-            this.background.Size = new Size(85, 85);
-            this.background.BackColor = Color.Transparent;
+            this.background = new PictureBox
+            {
+                Size = new Size(85, 85),
+                BackColor = Color.Transparent
+            };
 
             this.background.Click += new EventHandler(FieldSelect);
         }

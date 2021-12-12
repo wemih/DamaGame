@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace DamaGame
 {
-    class Game
+    class Game : Form1
     {
         readonly private bool isDebugMode;
         readonly private Random random = new Random();
@@ -16,6 +16,7 @@ namespace DamaGame
         private Player playerTwo;
         private Player nextPlayer;
         private Playfield playfield;
+        private string gamePhase;
 
         public Game(bool isDebugMode, string playerOneName, string playerTwoName)
         {
@@ -23,11 +24,13 @@ namespace DamaGame
             this.playerOne = new Player(this.isDebugMode, playerOneName);
             this.playerTwo = new Player(this.isDebugMode, playerTwoName);
             this.playfield = new Playfield(this.isDebugMode);
+            this.gamePhase = "selectFigure";
 
             if (this.isDebugMode) Console.WriteLine($"Game is generated");
 
             AddEventListeners();
             SelectStartingPlayer();
+            EnableFiguresForNextPlayer();
         }
 
         private void AddEventListeners()
@@ -48,12 +51,13 @@ namespace DamaGame
 
         private void OnClickFigure(object sender, EventArgs e)
         {
-            
+            ChangeGamePhase();
         }
 
         private void OnClickField(object sender, EventArgs e)
         {
-            Move();
+            ChangeGamePhase();
+            Moving();
         }
 
         private void SelectStartingPlayer()
@@ -75,24 +79,50 @@ namespace DamaGame
             if (this.isDebugMode) Console.WriteLine($"Starting player is {this.nextPlayer.Name}");
         }
 
+        private void SwitchNextPlayer()
+        {
+            this.nextPlayer = this.nextPlayer == this.playerOne ? this.playerTwo : this.playerOne;
+
+            if (this.isDebugMode) Console.WriteLine($"Next player is {this.nextPlayer.Name}/{this.nextPlayer.Color}");
+        }
+
+        private void ChangeGamePhase()
+        {
+            if (this.gamePhase == "selectFigure")
+            {
+                this.gamePhase = "selectField";
+                SwitchNextPlayer();
+                EnableFieldsForNextPlayer();
+            } else if (this.gamePhase == "selectField")
+            {
+                this.gamePhase = "selectfigure";
+                EnableFiguresForNextPlayer();
+            }
+            if (this.isDebugMode) Console.WriteLine($"Game phase changed to {this.gamePhase}");
+        }
+
         private void EnableFiguresForNextPlayer()
         {
+            DisableEverything();
+
             for (int i = 0; i < this.playfield.Fields.GetLength(0); i++)
             {
                 for (int j = 0; j < this.playfield.Fields.GetLength(1); j++)
                 {
-                    if (this.playfield.Fields[i, j] != null && this.playfield.Fields[i,j].Figure.Color == this.nextPlayer.Color)
+                    if (this.playfield.Fields[i, j].Figure != null && this.playfield.Fields[i, j].Figure.Color == this.nextPlayer.Color)
                     {
-                        this.playfield.Fields[i, j].Figure.Enable();
+                        this.playfield.Fields[i, j].Background.Enabled = true;
+                        this.playfield.Fields[i, j].Figure.Background.Enabled = true;
                     }
                 }
             }
-
             if (this.isDebugMode) Console.WriteLine($"{this.nextPlayer.Color} figures enabled for {this.nextPlayer.Name}");
         }
 
         private void EnableFieldsForNextPlayer()
         {
+            DisableEverything();
+
             for (int i = 0; i < this.playfield.Fields.GetLength(0); i++)
             {
                 for (int j = 0; j < this.playfield.Fields.GetLength(1); j++)
@@ -152,15 +182,29 @@ namespace DamaGame
                     }
                 }
             }
-
             if (this.isDebugMode) Console.WriteLine($"Fields enabled for {this.nextPlayer.Name}");
         }
 
-        private void Move()
+        private void DisableEverything()
+        {
+            for (int i = 0; i < this.playfield.Fields.GetLength(0); i++)
+            {
+                for (int j = 0; j < this.playfield.Fields.GetLength(1); j++)
+                {
+                    this.playfield.Fields[i,j].Background.Enabled = false;
+
+                    if (this.playfield.Fields[i, j].Figure != null)
+                    {
+                        this.playfield.Fields[i, j].Figure.Background.Enabled = false;
+                    }
+                }
+            }
+        }
+
+        private void Moving()
         {
             int[] selectedFigureLocation = new int[2];
             int[] targetFieldLocation = new int[2];
-            Point fieldCoords = new Point();
 
             for (int i = 0; i < this.playfield.Fields.GetLength(0); i++)
             {
@@ -179,12 +223,17 @@ namespace DamaGame
                     }
                 }
             }
-            //remove in view
-            this.playfield.Fields[selectedFigureLocation[0], selectedFigureLocation[1]].Figure.Remove();
+            //deselect
+            this.playfield.Fields[selectedFigureLocation[0], selectedFigureLocation[1]].Figure.IsSelected = false;
+            this.playfield.Fields[targetFieldLocation[0], targetFieldLocation[1]].IsSelected = false;
 
             //move in matrix
             this.playfield.Fields[targetFieldLocation[0], targetFieldLocation[1]].Figure = this.playfield.Fields[selectedFigureLocation[0], selectedFigureLocation[1]].Figure;
             this.playfield.Fields[selectedFigureLocation[0], selectedFigureLocation[1]].Figure = null;
+
+            //set figure hiearchy
+            this.playfield.Fields[targetFieldLocation[0], targetFieldLocation[1]].Figure.Background.Parent = this.playfield.Fields[targetFieldLocation[0], targetFieldLocation[1]].Background;
+            
 
             Console.WriteLine("Figure moved");
 
@@ -194,10 +243,16 @@ namespace DamaGame
                 {
                     if (this.playfield.Fields[i, j].Figure != null)
                     {
-                        Console.Write("(X)");
+                        if (this.playfield.Fields[i, j].Figure.Color == "dark")
+                        {
+                            Console.Write("(X)");
+                        } else
+                        {
+                            Console.Write("(O)");
+                        }
                     } else
                     {
-                        Console.Write("(O)");
+                        Console.Write("(*)");
                     }
                 }
                 Console.WriteLine("");

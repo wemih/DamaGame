@@ -11,21 +11,21 @@ namespace DamaGame
     class Playfield
     {
         readonly private bool isDebugMode;
-        private bool isActive;
         private Field[,] fields;
         private PictureBox background;
 
         public Playfield(bool isDebugMode)
         {
             this.isDebugMode = isDebugMode;
-            this.isActive = true;
             this.Fields = new Field[8, 8];
 
-            this.Background = new PictureBox();
-            this.Background.Size = new Size(800, 800);
-            this.background.Location = new Point(300, 0);
-            this.Background.BackgroundImageLayout = ImageLayout.Stretch;
-            this.Background.BackgroundImage = Properties.Resources.board;
+            this.background = new PictureBox
+            {
+                Size = new Size(800, 800),
+                Location = new Point(300, 0),
+                BackgroundImageLayout = ImageLayout.Stretch,
+                BackgroundImage = Properties.Resources.board
+            };
 
             AddFields();
             AddFigures();
