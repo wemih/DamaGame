@@ -14,6 +14,7 @@ namespace DamaGame
         private bool isSelected;
         private PictureBox background;
         private Figure figure;
+        private bool hasComplusion;
 
         public Field(bool isDebugMode)
         {
@@ -51,11 +52,29 @@ namespace DamaGame
             this.background.Visible = false;
         }
 
+        public void StepComplusion()
+        {
+            this.background.BackgroundImage = Properties.Resources.step;
+            HasComplusion = true;
+        }
+
+        public void HitComplusion()
+        {
+            this.background.BackgroundImage = Properties.Resources.force;
+            HasComplusion = true;
+        }
+        public void RemoveComplusions()
+        {
+            this.background.BackgroundImage = null;
+            HasComplusion = false;
+        }
+
         public bool IsDebugMode => isDebugMode;
 
         public bool IsSelectable { get => isSelectable; set => isSelectable = value; }
         public bool IsSelected { get => isSelected; set => isSelected = value; }
         public PictureBox Background { get => background; set => background = value; }
         internal Figure Figure { get => figure; set => figure = value; }
+        public bool HasComplusion { get => hasComplusion; set => hasComplusion = value; }
     }
 }

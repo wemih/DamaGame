@@ -139,4 +139,10 @@
   <data name="background1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="force" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\force.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="step" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\step.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

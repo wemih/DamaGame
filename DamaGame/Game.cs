@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace DamaGame
 {
-    class Game : Form1
+    class Game
     {
         readonly private bool isDebugMode;
         readonly private Random random = new Random();
@@ -51,13 +51,15 @@ namespace DamaGame
 
         private void OnClickFigure(object sender, EventArgs e)
         {
-            ChangeGamePhase();
+            EnableFieldsForNextPlayer();
         }
 
         private void OnClickField(object sender, EventArgs e)
         {
-            ChangeGamePhase();
             Moving();
+            RemoveComplusions();
+            SwitchNextPlayer();
+            EnableFiguresForNextPlayer();
         }
 
         private void SelectStartingPlayer()
@@ -86,36 +88,89 @@ namespace DamaGame
             if (this.isDebugMode) Console.WriteLine($"Next player is {this.nextPlayer.Name}/{this.nextPlayer.Color}");
         }
 
-        private void ChangeGamePhase()
+        private void FigureCanMove()
         {
-            if (this.gamePhase == "selectFigure")
-            {
-                this.gamePhase = "selectField";
-                SwitchNextPlayer();
-                EnableFieldsForNextPlayer();
-            } else if (this.gamePhase == "selectField")
-            {
-                this.gamePhase = "selectfigure";
-                EnableFiguresForNextPlayer();
-            }
-            if (this.isDebugMode) Console.WriteLine($"Game phase changed to {this.gamePhase}");
+
+        }
+
+        private void IsThereHitComplusion()
+        {
+            
         }
 
         private void EnableFiguresForNextPlayer()
         {
+            bool foundedHitComplusions = false;
+
             DisableEverything();
 
             for (int i = 0; i < this.playfield.Fields.GetLength(0); i++)
             {
                 for (int j = 0; j < this.playfield.Fields.GetLength(1); j++)
                 {
-                    if (this.playfield.Fields[i, j].Figure != null && this.playfield.Fields[i, j].Figure.Color == this.nextPlayer.Color)
+                    if (this.playfield.Fields[i, j].Figure != null)
                     {
-                        this.playfield.Fields[i, j].Background.Enabled = true;
-                        this.playfield.Fields[i, j].Figure.Background.Enabled = true;
+                        if (this.playfield.Fields[i, j].Figure.IsDama)
+                        {
+
+                        } else
+                        {
+                            if (this.nextPlayer.Color == "dark")
+                            {
+
+                                if (i < 5 && j > 2 && this.playfield.Fields[i + 1, j - 1].Figure != null && this.playfield.Fields[i + 1, j - 1].Figure.Color == "light" && this.playfield.Fields[i + 2, j - 2].Figure == null)
+                                {
+                                    this.playfield.Fields[i, j].Background.Enabled = true;
+                                    this.playfield.Fields[i, j].Figure.Background.Enabled = true;
+                                    foundedHitComplusions = true;
+                                }
+
+
+                                if (i < 5 && j < 5 && this.playfield.Fields[i + 1, j + 1].Figure != null && this.playfield.Fields[i + 1, j + 1].Figure.Color == "light" && this.playfield.Fields[i + 2, j + 2].Figure == null)
+                                {
+                                    this.playfield.Fields[i, j].Background.Enabled = true;
+                                    this.playfield.Fields[i, j].Figure.Background.Enabled = true;
+                                    foundedHitComplusions = true;
+                                }
+
+                            }
+                            else if (this.nextPlayer.Color == "light")
+                            {
+                                if (i > 2 && j > 2 && this.playfield.Fields[i - 1, j - 1].Figure != null && this.playfield.Fields[i - 1, j - 1].Figure.Color == "dark" && this.playfield.Fields[i - 2, j - 2].Figure == null)
+                                {
+                                    this.playfield.Fields[i, j].Background.Enabled = true;
+                                    this.playfield.Fields[i, j].Figure.Background.Enabled = true;
+                                    foundedHitComplusions = true;
+                                }
+
+
+                                if (i > 2 && j < 5 && this.playfield.Fields[i - 1, j + 1].Figure != null && this.playfield.Fields[i - 1, j + 1].Figure.Color == "dark" && this.playfield.Fields[i - 2, j + 2].Figure == null)
+                                {
+                                    this.playfield.Fields[i, j].Background.Enabled = true;
+                                    this.playfield.Fields[i, j].Figure.Background.Enabled = true;
+                                    foundedHitComplusions = true;
+                                }
+                            }
+                        }
                     }
                 }
             }
+
+            if (!foundedHitComplusions)
+            {
+                for (int i = 0; i < this.playfield.Fields.GetLength(0); i++)
+                {
+                    for (int j = 0; j < this.playfield.Fields.GetLength(1); j++)
+                    {
+                        if (this.playfield.Fields[i,j].Figure != null && this.playfield.Fields[i, j].Figure.Color == this.nextPlayer.Color)
+                        {
+                            this.playfield.Fields[i, j].Background.Enabled = true;
+                            this.playfield.Fields[i, j].Figure.Background.Enabled = true;
+                        }
+                    }
+                }
+            }
+
             if (this.isDebugMode) Console.WriteLine($"{this.nextPlayer.Color} figures enabled for {this.nextPlayer.Name}");
         }
 
@@ -138,21 +193,35 @@ namespace DamaGame
                             {
                                 if (i < 7)
                                 {
-                                    //Lépéskényszerek
-                                    if (j > 0 && this.playfield.Fields[i + 1, j - 1].Figure == null) { this.playfield.Fields[i + 1, j - 1].Enable(); }
-                                    if (j < 7 && this.playfield.Fields[i + 1, j + 1].Figure == null) { this.playfield.Fields[i + 1, j + 1].Enable(); }
-
-                                    //Ütéskényszerek
-                                    if (j > 1 && this.playfield.Fields[i + 1, j - 1].Figure != null && this.playfield.Fields[i + 1, j - 1].Figure.Color == "light" && this.playfield.Fields[i + 2, j - 2].Figure == null)
+                                    //Ütés
+                                    if ((j > 1 && this.playfield.Fields[i + 1, j - 1].Figure != null && this.playfield.Fields[i + 1, j - 1].Figure.Color == "light" && this.playfield.Fields[i + 2, j - 2].Figure == null)
+                                     || (j < 6 && this.playfield.Fields[i + 1, j + 1].Figure != null && this.playfield.Fields[i + 1, j + 1].Figure.Color == "light" && this.playfield.Fields[i + 2, j + 2].Figure == null))
                                     {
-                                        //TODO ütéskényszer
-                                        this.playfield.Fields[i + 2, j - 2].Enable();
-                                    }
+                                        if (j > 1 && this.playfield.Fields[i + 1, j - 1].Figure != null && this.playfield.Fields[i + 1, j - 1].Figure.Color == "light" && this.playfield.Fields[i + 2, j - 2].Figure == null)
+                                        {
+                                            this.playfield.Fields[i + 2, j - 2].Enable();
+                                            this.playfield.Fields[i + 2, j - 2].HitComplusion();
+                                        }
 
-                                    if (j < 6 && this.playfield.Fields[i + 1, j + 1].Figure != null && this.playfield.Fields[i + 1, j + 1].Figure.Color == "light" && this.playfield.Fields[i + 2, j + 2].Figure == null)
+                                        if (j < 6 && this.playfield.Fields[i + 1, j + 1].Figure != null && this.playfield.Fields[i + 1, j + 1].Figure.Color == "light" && this.playfield.Fields[i + 2, j + 2].Figure == null)
+                                        {
+                                            this.playfield.Fields[i + 2, j + 2].Enable();
+                                            this.playfield.Fields[i + 2, j + 2].HitComplusion();
+                                        }
+                                    } else
                                     {
-                                        //TODO ütéskényszer
-                                        this.playfield.Fields[i + 2, j + 2].Enable();
+                                        //Lépés
+                                        if (j > 0 && this.playfield.Fields[i + 1, j - 1].Figure == null)
+                                        {
+                                            this.playfield.Fields[i + 1, j - 1].Enable();
+                                            this.playfield.Fields[i + 1, j - 1].StepComplusion();
+                                        }
+
+                                        if (j < 7 && this.playfield.Fields[i + 1, j + 1].Figure == null)
+                                        {
+                                            this.playfield.Fields[i + 1, j + 1].Enable();
+                                            this.playfield.Fields[i + 1, j + 1].StepComplusion();
+                                        }
                                     }
                                 }
                             }
@@ -160,21 +229,35 @@ namespace DamaGame
                             {
                                 if (i > 0)
                                 {
-                                    //Lépéskényszerek
-                                    if (j > 0 && this.playfield.Fields[i - 1, j - 1].Figure == null) { this.playfield.Fields[i - 1, j - 1].Enable(); }
-                                    if (j > 0 && this.playfield.Fields[i - 1, j + 1].Figure == null) { this.playfield.Fields[i - 1, j + 1].Enable(); }
-
-                                    //Ütéskényszerek
-                                    if (j > 1 && this.playfield.Fields[i - 1, j - 1].Figure != null && this.playfield.Fields[i - 1, j - 1].Figure.Color == "dark" && this.playfield.Fields[i - 2, j - 2].Figure == null)
+                                    //Ütés
+                                    if ((j > 1 && this.playfield.Fields[i - 1, j - 1].Figure != null && this.playfield.Fields[i - 1, j - 1].Figure.Color == "dark" && this.playfield.Fields[i - 2, j - 2].Figure == null)
+                                     || (j < 6 && this.playfield.Fields[i - 1, j + 1].Figure != null && this.playfield.Fields[i - 1, j + 1].Figure.Color == "dark" && this.playfield.Fields[i - 2, j + 2].Figure == null))
                                     {
-                                        //TODO ütéskényszer
-                                        this.playfield.Fields[i - 2, j - 2].Enable();
-                                    }
+                                        if (j > 1 && this.playfield.Fields[i - 1, j - 1].Figure != null && this.playfield.Fields[i - 1, j - 1].Figure.Color == "dark" && this.playfield.Fields[i - 2, j - 2].Figure == null)
+                                        {
+                                            this.playfield.Fields[i - 2, j - 2].Enable();
+                                            this.playfield.Fields[i - 2, j - 2].HitComplusion();
+                                        }
 
-                                    if (j < 6 && this.playfield.Fields[i - 1, j + 1].Figure != null && this.playfield.Fields[i - 1, j + 1].Figure.Color == "dark" && this.playfield.Fields[i - 2, j + 2].Figure == null)
+                                        if (j < 6 && this.playfield.Fields[i - 1, j + 1].Figure != null && this.playfield.Fields[i - 1, j + 1].Figure.Color == "dark" && this.playfield.Fields[i - 2, j + 2].Figure == null)
+                                        {
+                                            this.playfield.Fields[i - 2, j + 2].Enable();
+                                            this.playfield.Fields[i - 2, j + 2].HitComplusion();
+                                        }
+                                    } else
                                     {
-                                        //TODO ütéskényszer
-                                        this.playfield.Fields[i - 2, j + 2].Enable();
+                                        //Lépés
+                                        if (j > 0 && this.playfield.Fields[i - 1, j - 1].Figure == null)
+                                        {
+                                            this.playfield.Fields[i - 1, j - 1].Enable();
+                                            this.playfield.Fields[i - 1, j - 1].StepComplusion();
+                                        }
+
+                                        if (j < 7 && this.playfield.Fields[i - 1, j + 1].Figure == null)
+                                        {
+                                            this.playfield.Fields[i - 1, j + 1].Enable();
+                                            this.playfield.Fields[i - 1, j + 1].StepComplusion();
+                                        }
                                     }
                                 }
                             }
@@ -191,7 +274,7 @@ namespace DamaGame
             {
                 for (int j = 0; j < this.playfield.Fields.GetLength(1); j++)
                 {
-                    this.playfield.Fields[i,j].Background.Enabled = false;
+                    this.playfield.Fields[i, j].Background.Enabled = false;
 
                     if (this.playfield.Fields[i, j].Figure != null)
                     {
@@ -223,6 +306,13 @@ namespace DamaGame
                     }
                 }
             }
+
+            // hit detection
+            int[] possibleHitLoctaion = new int[] {(selectedFigureLocation[0] + targetFieldLocation[0]) / 2, (selectedFigureLocation[1] + targetFieldLocation[1]) / 2};
+            Hit(possibleHitLoctaion[0], possibleHitLoctaion[1]);
+
+            Console.WriteLine($"Possible hit location: {possibleHitLoctaion[0]} , {possibleHitLoctaion[1]}");
+
             //deselect
             this.playfield.Fields[selectedFigureLocation[0], selectedFigureLocation[1]].Figure.IsSelected = false;
             this.playfield.Fields[targetFieldLocation[0], targetFieldLocation[1]].IsSelected = false;
@@ -233,9 +323,8 @@ namespace DamaGame
 
             //set figure hiearchy
             this.playfield.Fields[targetFieldLocation[0], targetFieldLocation[1]].Figure.Background.Parent = this.playfield.Fields[targetFieldLocation[0], targetFieldLocation[1]].Background;
-            
 
-            Console.WriteLine("Figure moved");
+            if (this.isDebugMode) Console.WriteLine($"Figure moved");
 
             for (int i = 0; i < this.playfield.Fields.GetLength(0); i++)
             {
@@ -258,7 +347,7 @@ namespace DamaGame
                 Console.WriteLine("");
             }
         }
-             
+
         private void SearchDama()
         {
             for (int i = 0; i < this.playfield.Fields.GetLength(0); i++)
@@ -272,7 +361,7 @@ namespace DamaGame
                             this.playfield.Fields[i, j].Figure.IsDama = true;
                         }
 
-                        if (this.playfield.Fields[i ,j].Figure.Color == "light" && i == 0)
+                        if (this.playfield.Fields[i, j].Figure.Color == "light" && i == 0)
                         {
                             this.playfield.Fields[i, j].Figure.IsDama = true;
                         }
@@ -282,11 +371,27 @@ namespace DamaGame
             if (this.isDebugMode) Console.WriteLine($"Dama founded");
         }
 
-        private void ChangeNextPlayer()
+        private void RemoveComplusions()
         {
-            this.nextPlayer = this.nextPlayer == this.playerOne ? this.playerTwo : this.playerOne;
+            for (int i = 0; i < this.playfield.Fields.GetLength(0); i++)
+            {
+                for (int j = 0; j < this.playfield.Fields.GetLength(1); j++)
+                {
+                    if (this.playfield.Fields[i, j].HasComplusion)
+                    {
+                        this.playfield.Fields[i, j].RemoveComplusions();
+                    }
+                }
+            }
+        }
 
-            if (this.isDebugMode) Console.WriteLine($"Next player changed to {this.nextPlayer.Name}");
+        private void Hit(int row, int col)
+        {
+            if (this.playfield.Fields[row, col].Figure != null && this.playfield.Fields[row, col].Figure.Color != this.nextPlayer.Color)
+            {
+                this.playfield.Fields[row, col].Figure.Remove();
+                this.playfield.Fields[row, col].Figure = null;
+            }
         }
 
         public bool IsDebugMode => isDebugMode;
