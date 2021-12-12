@@ -51,13 +51,14 @@ namespace DamaGame
 
         private void OnClickFigure(object sender, EventArgs e)
         {
-            ChangeGamePhase();
+            EnableFieldsForNextPlayer();
         }
 
         private void OnClickField(object sender, EventArgs e)
         {
-            ChangeGamePhase();
             Moving();
+            SwitchNextPlayer();
+            EnableFiguresForNextPlayer();
         }
 
         private void SelectStartingPlayer()
@@ -84,21 +85,6 @@ namespace DamaGame
             this.nextPlayer = this.nextPlayer == this.playerOne ? this.playerTwo : this.playerOne;
 
             if (this.isDebugMode) Console.WriteLine($"Next player is {this.nextPlayer.Name}/{this.nextPlayer.Color}");
-        }
-
-        private void ChangeGamePhase()
-        {
-            if (this.gamePhase == "selectFigure")
-            {
-                this.gamePhase = "selectField";
-                SwitchNextPlayer();
-                EnableFieldsForNextPlayer();
-            } else if (this.gamePhase == "selectField")
-            {
-                this.gamePhase = "selectfigure";
-                EnableFiguresForNextPlayer();
-            }
-            if (this.isDebugMode) Console.WriteLine($"Game phase changed to {this.gamePhase}");
         }
 
         private void EnableFiguresForNextPlayer()
@@ -162,7 +148,7 @@ namespace DamaGame
                                 {
                                     //Lépéskényszerek
                                     if (j > 0 && this.playfield.Fields[i - 1, j - 1].Figure == null) { this.playfield.Fields[i - 1, j - 1].Enable(); }
-                                    if (j > 0 && this.playfield.Fields[i - 1, j + 1].Figure == null) { this.playfield.Fields[i - 1, j + 1].Enable(); }
+                                    if (j < 7 && this.playfield.Fields[i - 1, j + 1].Figure == null) { this.playfield.Fields[i - 1, j + 1].Enable(); }
 
                                     //Ütéskényszerek
                                     if (j > 1 && this.playfield.Fields[i - 1, j - 1].Figure != null && this.playfield.Fields[i - 1, j - 1].Figure.Color == "dark" && this.playfield.Fields[i - 2, j - 2].Figure == null)
@@ -280,13 +266,6 @@ namespace DamaGame
                 }
             }
             if (this.isDebugMode) Console.WriteLine($"Dama founded");
-        }
-
-        private void ChangeNextPlayer()
-        {
-            this.nextPlayer = this.nextPlayer == this.playerOne ? this.playerTwo : this.playerOne;
-
-            if (this.isDebugMode) Console.WriteLine($"Next player changed to {this.nextPlayer.Name}");
         }
 
         public bool IsDebugMode => isDebugMode;
