@@ -47,6 +47,7 @@ namespace DamaGame
             this.aboutLBL02 = new System.Windows.Forms.Label();
             this.aboutLBL03 = new System.Windows.Forms.Label();
             this.aboutLBL04 = new System.Windows.Forms.Label();
+            this.backgroundPNL = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // NewGameButtonLBL
@@ -233,6 +234,15 @@ namespace DamaGame
             this.aboutLBL04.Text = "\r\n - Designer\r\n\r\n";
             this.aboutLBL04.Visible = false;
             // 
+            // backgroundPNL
+            // 
+            this.backgroundPNL.BackgroundImage = global::DamaGame.Properties.Resources.background1;
+            this.backgroundPNL.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.backgroundPNL.Location = new System.Drawing.Point(0, 0);
+            this.backgroundPNL.Name = "backgroundPNL";
+            this.backgroundPNL.Size = new System.Drawing.Size(1135, 812);
+            this.backgroundPNL.TabIndex = 17;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -257,6 +267,7 @@ namespace DamaGame
             this.Controls.Add(this.htpLBL02);
             this.Controls.Add(this.htpLBL04);
             this.Controls.Add(this.htpLBL03);
+            this.Controls.Add(this.backgroundPNL);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Dama";
@@ -284,6 +295,7 @@ namespace DamaGame
         private System.Windows.Forms.Label aboutLBL02;
         private System.Windows.Forms.Label aboutLBL03;
         private System.Windows.Forms.Label aboutLBL04;
+        private System.Windows.Forms.Panel backgroundPNL;
     }
 }
 

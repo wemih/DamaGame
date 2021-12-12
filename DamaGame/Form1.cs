@@ -20,9 +20,28 @@ namespace DamaGame
 
             isDebugMode = true;
         }
-
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            RefreshViewHiearchy();
+        }
+        private void RefreshViewHiearchy()
+        {
+            NewGameButtonLBL.Parent = backgroundPNL;
+            AboutButtonLBL.Parent = backgroundPNL;
+            HowToPlayButtonLBL.Parent = backgroundPNL;
+            ExitButtonLBL.Parent = backgroundPNL;
+            PlayerNamesLBL.Parent = backgroundPNL;
+            PlayerOneNameTBOX.Parent = backgroundPNL;
+            PlayerTwoNameTBOX.Parent = backgroundPNL;
+            PlayerNamesErrorLBL.Parent = backgroundPNL;
+            StartButtonLBL.Parent = backgroundPNL;
+        }
         private void RefreshGameViewHiearchy()
         {
+            
+
+            this.game.Playfield.Background.Parent = backgroundPNL;
+
             for (int i = 0; i < this.game.Playfield.Fields.GetLength(0); i++)
             {
                 for (int j = 0; j < this.game.Playfield.Fields.GetLength(1); j++)
@@ -131,6 +150,16 @@ namespace DamaGame
             PlayerNamesErrorLBL.Visible = false;
             StartButtonLBL.Visible = false;
 
+            htpLBL01.Visible = false;
+            htpLBL02.Visible = false;
+            htpLBL03.Visible = false;
+            htpLBL04.Visible = false;
+
+            aboutLBL01.Visible = false;
+            aboutLBL02.Visible = false;
+            aboutLBL03.Visible = false;
+            aboutLBL04.Visible = false;
+
             //about
 
             //how to play
@@ -154,16 +183,7 @@ namespace DamaGame
             PlayerTwoNameTBOX.Visible = true;
             PlayerNamesErrorLBL.Visible = false;
             StartButtonLBL.Visible = true;
-
-            htpLBL01.Visible = false;
-            htpLBL02.Visible = false;
-            htpLBL03.Visible = false;
-            htpLBL04.Visible = false;
-
-            aboutLBL01.Visible = false;
-            aboutLBL02.Visible = false;
-            aboutLBL03.Visible = false;
-            aboutLBL04.Visible = false;
+            
         }
 
         private void StartButtonLBL_Click(object sender, EventArgs e)
@@ -184,40 +204,24 @@ namespace DamaGame
 
         private void HowToPlayButtonLBL_Click(object sender, EventArgs e)
         {
+            HideAllMenuElements(false);
+
             htpLBL01.Visible = true;
             htpLBL02.Visible = true;
             htpLBL03.Visible = true;
             htpLBL04.Visible = true;
 
-            PlayerNamesLBL.Visible = false;
-            PlayerOneNameTBOX.Visible = false;
-            PlayerTwoNameTBOX.Visible = false;
-            PlayerNamesErrorLBL.Visible = false;
-            StartButtonLBL.Visible = false;
-
-            aboutLBL01.Visible = false;
-            aboutLBL02.Visible = false;
-            aboutLBL03.Visible = false;
-            aboutLBL04.Visible = false;
         }
 
         private void AboutButtonLBL_Click(object sender, EventArgs e)
         {
+            HideAllMenuElements(false);
+
             aboutLBL01.Visible = true;
             aboutLBL02.Visible = true;
             aboutLBL03.Visible = true;
             aboutLBL04.Visible = true;
 
-            htpLBL01.Visible = false;
-            htpLBL02.Visible = false;
-            htpLBL03.Visible = false;
-            htpLBL04.Visible = false;
-
-            PlayerNamesLBL.Visible = false;
-            PlayerOneNameTBOX.Visible = false;
-            PlayerTwoNameTBOX.Visible = false;
-            PlayerNamesErrorLBL.Visible = false;
-            StartButtonLBL.Visible = false;
         }
 
         //---------------Checkings-------------------
