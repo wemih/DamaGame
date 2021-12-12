@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace DamaGame
 {
-    class Game : Form1
+    class Game
     {
         readonly private bool isDebugMode;
         readonly private Random random = new Random();
@@ -57,6 +57,7 @@ namespace DamaGame
         private void OnClickField(object sender, EventArgs e)
         {
             Moving();
+            RemoveComplusions();
             SwitchNextPlayer();
             EnableFiguresForNextPlayer();
         }
@@ -125,20 +126,31 @@ namespace DamaGame
                                 if (i < 7)
                                 {
                                     //Lépéskényszerek
-                                    if (j > 0 && this.playfield.Fields[i + 1, j - 1].Figure == null) { this.playfield.Fields[i + 1, j - 1].Enable(); }
-                                    if (j < 7 && this.playfield.Fields[i + 1, j + 1].Figure == null) { this.playfield.Fields[i + 1, j + 1].Enable(); }
+                                    if (j > 0 && this.playfield.Fields[i + 1, j - 1].Figure == null)
+                                    {
+                                        this.playfield.Fields[i + 1, j - 1].Enable();
+                                        this.playfield.Fields[i + 1, j - 1].StepComplusion();
+                                    }
+
+                                    if (j < 7 && this.playfield.Fields[i + 1, j + 1].Figure == null)
+                                    {
+                                        this.playfield.Fields[i + 1, j + 1].Enable();
+                                        this.playfield.Fields[i + 1, j + 1].StepComplusion();
+                                    }
 
                                     //Ütéskényszerek
                                     if (j > 1 && this.playfield.Fields[i + 1, j - 1].Figure != null && this.playfield.Fields[i + 1, j - 1].Figure.Color == "light" && this.playfield.Fields[i + 2, j - 2].Figure == null)
                                     {
                                         //TODO ütéskényszer
                                         this.playfield.Fields[i + 2, j - 2].Enable();
+                                        this.playfield.Fields[i + 2, j - 2].HitComplusion();
                                     }
 
                                     if (j < 6 && this.playfield.Fields[i + 1, j + 1].Figure != null && this.playfield.Fields[i + 1, j + 1].Figure.Color == "light" && this.playfield.Fields[i + 2, j + 2].Figure == null)
                                     {
                                         //TODO ütéskényszer
                                         this.playfield.Fields[i + 2, j + 2].Enable();
+                                        this.playfield.Fields[i + 2, j + 2].HitComplusion();
                                     }
                                 }
                             }
@@ -147,20 +159,31 @@ namespace DamaGame
                                 if (i > 0)
                                 {
                                     //Lépéskényszerek
-                                    if (j > 0 && this.playfield.Fields[i - 1, j - 1].Figure == null) { this.playfield.Fields[i - 1, j - 1].Enable(); }
-                                    if (j < 7 && this.playfield.Fields[i - 1, j + 1].Figure == null) { this.playfield.Fields[i - 1, j + 1].Enable(); }
+                                    if (j > 0 && this.playfield.Fields[i - 1, j - 1].Figure == null)
+                                    {
+                                        this.playfield.Fields[i - 1, j - 1].Enable();
+                                        this.playfield.Fields[i - 1, j - 1].StepComplusion();
+                                    }
+
+                                    if (j < 7 && this.playfield.Fields[i - 1, j + 1].Figure == null)
+                                    {
+                                        this.playfield.Fields[i - 1, j + 1].Enable();
+                                        this.playfield.Fields[i - 1, j + 1].StepComplusion();
+                                    }
 
                                     //Ütéskényszerek
                                     if (j > 1 && this.playfield.Fields[i - 1, j - 1].Figure != null && this.playfield.Fields[i - 1, j - 1].Figure.Color == "dark" && this.playfield.Fields[i - 2, j - 2].Figure == null)
                                     {
                                         //TODO ütéskényszer
                                         this.playfield.Fields[i - 2, j - 2].Enable();
+                                        this.playfield.Fields[i - 2, j - 2].HitComplusion();
                                     }
 
                                     if (j < 6 && this.playfield.Fields[i - 1, j + 1].Figure != null && this.playfield.Fields[i - 1, j + 1].Figure.Color == "dark" && this.playfield.Fields[i - 2, j + 2].Figure == null)
                                     {
                                         //TODO ütéskényszer
                                         this.playfield.Fields[i - 2, j + 2].Enable();
+                                        this.playfield.Fields[i - 2, j + 2].HitComplusion();
                                     }
                                 }
                             }
@@ -219,7 +242,6 @@ namespace DamaGame
 
             //set figure hiearchy
             this.playfield.Fields[targetFieldLocation[0], targetFieldLocation[1]].Figure.Background.Parent = this.playfield.Fields[targetFieldLocation[0], targetFieldLocation[1]].Background;
-            
 
             Console.WriteLine("Figure moved");
 
@@ -266,6 +288,20 @@ namespace DamaGame
                 }
             }
             if (this.isDebugMode) Console.WriteLine($"Dama founded");
+        }
+
+        private void RemoveComplusions()
+        {
+            for (int i = 0; i < this.playfield.Fields.GetLength(0); i++)
+            {
+                for (int j = 0; j < this.playfield.Fields.GetLength(1); j++)
+                {
+                    if (this.playfield.Fields[i, j].HasComplusion)
+                    {
+                        this.playfield.Fields[i, j].RemoveComplusions();
+                    }
+                }
+            }
         }
 
         public bool IsDebugMode => isDebugMode;
