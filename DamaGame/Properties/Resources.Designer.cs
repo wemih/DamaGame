@@ -103,9 +103,29 @@ namespace DamaGame.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap dama_0_selected {
+            get {
+                object obj = ResourceManager.GetObject("dama_0_selected", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap dama_1 {
             get {
                 object obj = ResourceManager.GetObject("dama_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap dama_1_selected {
+            get {
+                object obj = ResourceManager.GetObject("dama_1_selected", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -123,9 +143,29 @@ namespace DamaGame.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap figure_0_selected {
+            get {
+                object obj = ResourceManager.GetObject("figure_0_selected", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap figure_1 {
             get {
                 object obj = ResourceManager.GetObject("figure_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap figure_1_selected {
+            get {
+                object obj = ResourceManager.GetObject("figure_1_selected", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

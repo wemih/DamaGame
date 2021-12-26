@@ -242,6 +242,7 @@ namespace DamaGame
             this.backgroundPNL.Name = "backgroundPNL";
             this.backgroundPNL.Size = new System.Drawing.Size(1135, 812);
             this.backgroundPNL.TabIndex = 17;
+            this.backgroundPNL.Paint += new System.Windows.Forms.PaintEventHandler(this.backgroundPNL_Paint);
             // 
             // Form1
             // 

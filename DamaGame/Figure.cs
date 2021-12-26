@@ -13,6 +13,7 @@ namespace DamaGame
         readonly private bool isDebugMode;
         private string color;
         private PictureBox background;
+        private bool isSelectable;
         private bool isSelected;
         private bool isDama;
 
@@ -28,10 +29,10 @@ namespace DamaGame
                 BackgroundImage = this.color == "dark" ? Properties.Resources.figure_1 : Properties.Resources.figure_0
             };
 
-            this.background.Click += new EventHandler(FigureSelect);
+            this.background.Click += new EventHandler(Select);
         }
 
-        private void FigureSelect(object sender, EventArgs e)
+        private void Select(object sender, EventArgs e)
         {
             this.isSelected = true;
 
@@ -39,24 +40,31 @@ namespace DamaGame
             if (isDebugMode) Console.WriteLine($"Figure Selected");
         }
 
-        public void Enable()
+        public bool IsSelected()
         {
-            this.background.Enabled = true;
+            return this.isSelected == true ? true : false;
         }
 
-        public void Disable()
+        public void Deselect()
         {
-            this.background.Enabled = false;
+            this.isSelected = false;
         }
 
-        public void Remove()
+        public void Hit()
         {
+            this.background.BackgroundImage = null;
             this.background.Visible = false;
         }
 
+        public void TurnIntoDama()
+        {
+            this.isDama = true;
+            this.background.BackgroundImage = this.color == "dark" ? Properties.Resources.dama_1 : Properties.Resources.dama_0;
+        }
+
         public PictureBox Background { get => background; set => background = value; }
-        public bool IsSelected { get => isSelected; set => isSelected = value; }
         public string Color { get => color; set => color = value; }
         public bool IsDama { get => isDama; set => isDama = value; }
+        public bool IsSelectable { get => isSelectable; set => isSelectable = value; }
     }
 }

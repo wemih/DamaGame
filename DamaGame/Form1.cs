@@ -64,7 +64,7 @@ namespace DamaGame
                 {
                     if (this.game.Playfield.Fields[i,j].Figure != null)
                     {
-                        
+                        this.game.Playfield.Fields[i, j].Figure.Background.Parent = this.game.Playfield.Fields[i, j].Background;
                     }
                 }
             }
@@ -248,6 +248,9 @@ namespace DamaGame
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
-        
+        private void backgroundPNL_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

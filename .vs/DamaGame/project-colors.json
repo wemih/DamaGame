@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "51fa71da-8cc5-4bdc-8a00-8a2a99bd47ab": {
+      "ProjectGuid": "51fa71da-8cc5-4bdc-8a00-8a2a99bd47ab",
+      "DisplayName": "DamaGame",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

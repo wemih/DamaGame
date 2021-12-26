@@ -24,7 +24,7 @@ namespace DamaGame
             this.playerOne = new Player(this.isDebugMode, playerOneName);
             this.playerTwo = new Player(this.isDebugMode, playerTwoName);
             this.playfield = new Playfield(this.isDebugMode);
-            this.gamePhase = "selectFigure";
+            this.gamePhase = "move";
 
             if (this.isDebugMode) Console.WriteLine($"Game is generated");
 
@@ -56,8 +56,8 @@ namespace DamaGame
 
         private void OnClickField(object sender, EventArgs e)
         {
-            Moving();
-            RemoveComplusions();
+            Move();
+            SearchDama();
             SwitchNextPlayer();
             EnableFiguresForNextPlayer();
         }
@@ -88,22 +88,9 @@ namespace DamaGame
             if (this.isDebugMode) Console.WriteLine($"Next player is {this.nextPlayer.Name}/{this.nextPlayer.Color}");
         }
 
-        private void FigureCanMove()
+        private bool IsThereHitCompForNextPlayer()
         {
-
-        }
-
-        private void IsThereHitComplusion()
-        {
-            
-        }
-
-        private void EnableFiguresForNextPlayer()
-        {
-            bool foundedHitComplusions = false;
-
-            DisableEverything();
-
+            bool founded = false;
             for (int i = 0; i < this.playfield.Fields.GetLength(0); i++)
             {
                 for (int j = 0; j < this.playfield.Fields.GetLength(1); j++)
@@ -115,156 +102,168 @@ namespace DamaGame
 
                         } else
                         {
-                            if (this.nextPlayer.Color == "dark")
+                            if (this.playfield.Fields[i, j].Figure.Color == "dark" && this.nextPlayer.Color == "dark")
                             {
-
-                                if (i < 5 && j > 2 && this.playfield.Fields[i + 1, j - 1].Figure != null && this.playfield.Fields[i + 1, j - 1].Figure.Color == "light" && this.playfield.Fields[i + 2, j - 2].Figure == null)
+                                if (i < 6 && j > 1 && this.playfield.Fields[i + 1, j - 1].Figure != null && this.playfield.Fields[i + 1, j - 1].Figure.Color == "light" &&
+                                   this.playfield.Fields[i + 2, j - 2].Figure == null)
                                 {
-                                    this.playfield.Fields[i, j].Background.Enabled = true;
-                                    this.playfield.Fields[i, j].Figure.Background.Enabled = true;
-                                    foundedHitComplusions = true;
+                                    this.playfield.Fields[i, j].EnableFigure();
+                                    founded = true;
                                 }
 
-
-                                if (i < 5 && j < 5 && this.playfield.Fields[i + 1, j + 1].Figure != null && this.playfield.Fields[i + 1, j + 1].Figure.Color == "light" && this.playfield.Fields[i + 2, j + 2].Figure == null)
+                                if (i < 6 && j < 6 && this.playfield.Fields[i + 1, j + 1].Figure != null && this.playfield.Fields[i + 1, j + 1].Figure.Color == "light" &&
+                                    this.playfield.Fields[i + 2, j + 2].Figure == null)
                                 {
-                                    this.playfield.Fields[i, j].Background.Enabled = true;
-                                    this.playfield.Fields[i, j].Figure.Background.Enabled = true;
-                                    foundedHitComplusions = true;
+                                    this.playfield.Fields[i, j].EnableFigure();
+                                    founded = true;
                                 }
 
-                            }
-                            else if (this.nextPlayer.Color == "light")
+                            } else if (this.playfield.Fields[i, j].Figure.Color == "light" && this.nextPlayer.Color == "light")
                             {
-                                if (i > 2 && j > 2 && this.playfield.Fields[i - 1, j - 1].Figure != null && this.playfield.Fields[i - 1, j - 1].Figure.Color == "dark" && this.playfield.Fields[i - 2, j - 2].Figure == null)
+                                if (i > 1 && j > 1 && this.playfield.Fields[i - 1, j - 1].Figure != null && this.playfield.Fields[i - 1, j - 1].Figure.Color == "dark" &&
+                                    this.playfield.Fields[i - 2, j - 2].Figure == null)
                                 {
-                                    this.playfield.Fields[i, j].Background.Enabled = true;
-                                    this.playfield.Fields[i, j].Figure.Background.Enabled = true;
-                                    foundedHitComplusions = true;
+                                    this.playfield.Fields[i, j].EnableFigure();
+                                    founded = true;
                                 }
 
-
-                                if (i > 2 && j < 5 && this.playfield.Fields[i - 1, j + 1].Figure != null && this.playfield.Fields[i - 1, j + 1].Figure.Color == "dark" && this.playfield.Fields[i - 2, j + 2].Figure == null)
+                                if (i > 1 && j < 6 && this.playfield.Fields[i - 1, j + 1].Figure != null && this.playfield.Fields[i - 1, j + 1].Figure.Color == "dark" &&
+                                    this.playfield.Fields[i - 2, j + 2].Figure == null)
                                 {
-                                    this.playfield.Fields[i, j].Background.Enabled = true;
-                                    this.playfield.Fields[i, j].Figure.Background.Enabled = true;
-                                    foundedHitComplusions = true;
+                                    this.playfield.Fields[i, j].EnableFigure();
+                                    founded = true;
                                 }
                             }
                         }
                     }
                 }
             }
+            if (founded)
+            {
+                this.gamePhase = "hitComp";
+            } else
+            {
+                this.gamePhase = "move";
+            }
+            return founded;
+        }
 
-            if (!foundedHitComplusions)
+        private void EnableFiguresForNextPlayer()
+        {
+            DisableEverything();
+            if (!IsThereHitCompForNextPlayer())
             {
                 for (int i = 0; i < this.playfield.Fields.GetLength(0); i++)
                 {
                     for (int j = 0; j < this.playfield.Fields.GetLength(1); j++)
                     {
-                        if (this.playfield.Fields[i,j].Figure != null && this.playfield.Fields[i, j].Figure.Color == this.nextPlayer.Color)
+                        if (this.playfield.Fields[i, j].Figure != null && this.playfield.Fields[i,j].Figure.Color == this.nextPlayer.Color)
                         {
-                            this.playfield.Fields[i, j].Background.Enabled = true;
-                            this.playfield.Fields[i, j].Figure.Background.Enabled = true;
+                            if (this.playfield.Fields[i, j].Figure.IsDama)
+                            {
+
+                            } else
+                            {
+                                if (this.playfield.Fields[i, j].Figure.Color == "dark" && i < 7)
+                                {
+                                    if ((j > 0 && this.playfield.Fields[i + 1, j - 1].Figure == null) || (j < 7 && this.playfield.Fields[i + 1, j + 1].Figure == null))
+                                    {
+                                        this.playfield.Fields[i, j].EnableFigure();
+                                    }
+                                }
+
+                                if (this.playfield.Fields[i, j].Figure.Color == "light" && i > 0)
+                                {
+                                    if ((j > 0 && this.playfield.Fields[i - 1, j - 1].Figure == null) || (j < 7 && this.playfield.Fields[i - 1, j + 1].Figure == null))
+                                    {
+                                        this.playfield.Fields[i, j].EnableFigure();
+                                    }
+                                }
+                            }
                         }
                     }
                 }
             }
-
-            if (this.isDebugMode) Console.WriteLine($"{this.nextPlayer.Color} figures enabled for {this.nextPlayer.Name}");
-        }
+        } 
 
         private void EnableFieldsForNextPlayer()
         {
             DisableEverything();
 
-            for (int i = 0; i < this.playfield.Fields.GetLength(0); i++)
+            if(this.gamePhase == "move")
             {
-                for (int j = 0; j < this.playfield.Fields.GetLength(1); j++)
+                for (int i = 0; i < this.playfield.Fields.GetLength(0); i++)
                 {
-                    if (this.playfield.Fields[i, j].Figure != null && this.playfield.Fields[i, j].Figure.IsSelected == true)
+                    for (int j = 0; j < this.playfield.Fields.GetLength(1); j++)
                     {
-                        if (this.playfield.Fields[i, j].Figure.IsDama)
-                        {
-                            //TODO dáma figurák lépése
-                        } else
+                        if (this.playfield.Fields[i, j].Figure != null && this.playfield.Fields[i, j].Figure.IsSelected())
                         {
                             if (this.playfield.Fields[i, j].Figure.Color == "dark")
                             {
-                                if (i < 7)
+                                if (j > 0 && this.playfield.Fields[i + 1, j - 1].Figure == null)
                                 {
-                                    //Ütés
-                                    if ((j > 1 && this.playfield.Fields[i + 1, j - 1].Figure != null && this.playfield.Fields[i + 1, j - 1].Figure.Color == "light" && this.playfield.Fields[i + 2, j - 2].Figure == null)
-                                     || (j < 6 && this.playfield.Fields[i + 1, j + 1].Figure != null && this.playfield.Fields[i + 1, j + 1].Figure.Color == "light" && this.playfield.Fields[i + 2, j + 2].Figure == null))
-                                    {
-                                        if (j > 1 && this.playfield.Fields[i + 1, j - 1].Figure != null && this.playfield.Fields[i + 1, j - 1].Figure.Color == "light" && this.playfield.Fields[i + 2, j - 2].Figure == null)
-                                        {
-                                            this.playfield.Fields[i + 2, j - 2].Enable();
-                                            this.playfield.Fields[i + 2, j - 2].HitComplusion();
-                                        }
+                                    this.playfield.Fields[i + 1, j - 1].EnableFieldForStep();
+                                }
 
-                                        if (j < 6 && this.playfield.Fields[i + 1, j + 1].Figure != null && this.playfield.Fields[i + 1, j + 1].Figure.Color == "light" && this.playfield.Fields[i + 2, j + 2].Figure == null)
-                                        {
-                                            this.playfield.Fields[i + 2, j + 2].Enable();
-                                            this.playfield.Fields[i + 2, j + 2].HitComplusion();
-                                        }
-                                    } else
-                                    {
-                                        //Lépés
-                                        if (j > 0 && this.playfield.Fields[i + 1, j - 1].Figure == null)
-                                        {
-                                            this.playfield.Fields[i + 1, j - 1].Enable();
-                                            this.playfield.Fields[i + 1, j - 1].StepComplusion();
-                                        }
-
-                                        if (j < 7 && this.playfield.Fields[i + 1, j + 1].Figure == null)
-                                        {
-                                            this.playfield.Fields[i + 1, j + 1].Enable();
-                                            this.playfield.Fields[i + 1, j + 1].StepComplusion();
-                                        }
-                                    }
+                                if (j < 7 && this.playfield.Fields[i + 1, j + 1].Figure == null)
+                                {
+                                    this.playfield.Fields[i + 1, j + 1].EnableFieldForStep();
                                 }
                             }
-                            else if (this.playfield.Fields[i, j].Figure.Color == "light")
+
+                            if (this.playfield.Fields[i, j].Figure.Color == "light")
                             {
-                                if (i > 0)
+                                if (j > 0 && this.playfield.Fields[i - 1, j - 1].Figure == null)
                                 {
-                                    //Ütés
-                                    if ((j > 1 && this.playfield.Fields[i - 1, j - 1].Figure != null && this.playfield.Fields[i - 1, j - 1].Figure.Color == "dark" && this.playfield.Fields[i - 2, j - 2].Figure == null)
-                                     || (j < 6 && this.playfield.Fields[i - 1, j + 1].Figure != null && this.playfield.Fields[i - 1, j + 1].Figure.Color == "dark" && this.playfield.Fields[i - 2, j + 2].Figure == null))
-                                    {
-                                        if (j > 1 && this.playfield.Fields[i - 1, j - 1].Figure != null && this.playfield.Fields[i - 1, j - 1].Figure.Color == "dark" && this.playfield.Fields[i - 2, j - 2].Figure == null)
-                                        {
-                                            this.playfield.Fields[i - 2, j - 2].Enable();
-                                            this.playfield.Fields[i - 2, j - 2].HitComplusion();
-                                        }
+                                    this.playfield.Fields[i - 1, j - 1].EnableFieldForStep();
+                                }
 
-                                        if (j < 6 && this.playfield.Fields[i - 1, j + 1].Figure != null && this.playfield.Fields[i - 1, j + 1].Figure.Color == "dark" && this.playfield.Fields[i - 2, j + 2].Figure == null)
-                                        {
-                                            this.playfield.Fields[i - 2, j + 2].Enable();
-                                            this.playfield.Fields[i - 2, j + 2].HitComplusion();
-                                        }
-                                    } else
-                                    {
-                                        //Lépés
-                                        if (j > 0 && this.playfield.Fields[i - 1, j - 1].Figure == null)
-                                        {
-                                            this.playfield.Fields[i - 1, j - 1].Enable();
-                                            this.playfield.Fields[i - 1, j - 1].StepComplusion();
-                                        }
+                                if (j < 7 && this.playfield.Fields[i - 1, j + 1].Figure == null)
+                                {
+                                    this.playfield.Fields[i - 1, j + 1].EnableFieldForStep();
+                                }
+                            }
+                        }
+                    }
+                }
+            } else if (this.gamePhase == "hitComp")
+            {
+                for (int i = 0; i < this.playfield.Fields.GetLength(0); i++)
+                {
+                    for (int j = 0; j < this.playfield.Fields.GetLength(1); j++)
+                    {
+                        if (this.playfield.Fields[i, j].Figure != null && this.playfield.Fields[i, j].Figure.IsSelected())
+                        {
+                            if (this.playfield.Fields[i, j].Figure.Color == "dark" && i < 6)
+                            {
+                                if (j > 1 && this.playfield.Fields[i + 1, j - 1].Figure != null && this.playfield.Fields[i + 1, j - 1].Figure.Color == "light" && this.playfield.Fields[i + 2, j - 2].Figure == null)
+                                {
+                                    this.playfield.Fields[i + 2, j - 2].EnableFieldForHit();
+                                }
 
-                                        if (j < 7 && this.playfield.Fields[i - 1, j + 1].Figure == null)
-                                        {
-                                            this.playfield.Fields[i - 1, j + 1].Enable();
-                                            this.playfield.Fields[i - 1, j + 1].StepComplusion();
-                                        }
-                                    }
+                                if (j < 6 && this.playfield.Fields[i + 1, j + 1].Figure != null && this.playfield.Fields[i + 1, j + 1].Figure.Color == "light" && this.playfield.Fields[i + 2, j + 2].Figure == null)
+                                {
+                                    this.playfield.Fields[i + 2, j + 2].EnableFieldForHit();
+                                }
+                            }
+
+                            if (this.playfield.Fields[i, j].Figure.Color == "light" && i > 1)
+                            {
+                                if (j > 1 && this.playfield.Fields[i - 1, j - 1].Figure != null && this.playfield.Fields[i - 1, j - 1].Figure.Color == "dark" && this.playfield.Fields[i - 2, j - 2].Figure == null)
+                                {
+                                    this.playfield.Fields[i - 2, j - 2].EnableFieldForHit();
+                                }
+
+                                if (j < 6 && this.playfield.Fields[i - 1, j + 1].Figure != null && this.playfield.Fields[i - 1, j + 1].Figure.Color == "dark" && this.playfield.Fields[i - 2, j + 2].Figure == null)
+                                {
+                                    this.playfield.Fields[i - 2, j + 2].EnableFieldForHit();
                                 }
                             }
                         }
                     }
                 }
             }
+
             if (this.isDebugMode) Console.WriteLine($"Fields enabled for {this.nextPlayer.Name}");
         }
 
@@ -274,17 +273,15 @@ namespace DamaGame
             {
                 for (int j = 0; j < this.playfield.Fields.GetLength(1); j++)
                 {
-                    this.playfield.Fields[i, j].Background.Enabled = false;
-
-                    if (this.playfield.Fields[i, j].Figure != null)
-                    {
-                        this.playfield.Fields[i, j].Figure.Background.Enabled = false;
-                    }
+                    this.playfield.Fields[i, j].DisableField();
+                    this.playfield.Fields[i, j].DisableFigure();
                 }
             }
-        }
 
-        private void Moving()
+            Console.WriteLine("Every field and figure disabled");
+        }
+        
+        private void Move()
         {
             int[] selectedFigureLocation = new int[2];
             int[] targetFieldLocation = new int[2];
@@ -293,13 +290,13 @@ namespace DamaGame
             {
                 for (int j = 0; j < this.playfield.Fields.GetLength(1); j++)
                 {
-                    if (this.playfield.Fields[i, j].Figure != null && this.playfield.Fields[i, j].Figure.IsSelected)
+                    if (this.playfield.Fields[i, j].Figure != null && this.playfield.Fields[i, j].Figure.IsSelected())
                     {
                         selectedFigureLocation[0] = i;
                         selectedFigureLocation[1] = j;
                     }
 
-                    if (this.playfield.Fields[i, j].Figure == null && this.playfield.Fields[i, j].IsSelected)
+                    if (this.playfield.Fields[i, j].Figure == null && this.playfield.Fields[i, j].IsSelected())
                     {
                         targetFieldLocation[0] = i;
                         targetFieldLocation[1] = j;
@@ -307,46 +304,27 @@ namespace DamaGame
                 }
             }
 
-            // hit detection
-            int[] possibleHitLoctaion = new int[] {(selectedFigureLocation[0] + targetFieldLocation[0]) / 2, (selectedFigureLocation[1] + targetFieldLocation[1]) / 2};
-            Hit(possibleHitLoctaion[0], possibleHitLoctaion[1]);
+            //deselect the figure and field
+            this.playfield.Fields[selectedFigureLocation[0], selectedFigureLocation[1]].Figure.Deselect();
+            this.playfield.Fields[targetFieldLocation[0], targetFieldLocation[1]].Deselect();
 
-            Console.WriteLine($"Possible hit location: {possibleHitLoctaion[0]} , {possibleHitLoctaion[1]}");
+            
 
-            //deselect
-            this.playfield.Fields[selectedFigureLocation[0], selectedFigureLocation[1]].Figure.IsSelected = false;
-            this.playfield.Fields[targetFieldLocation[0], targetFieldLocation[1]].IsSelected = false;
-
-            //move in matrix
+            //move in the 2d array
             this.playfield.Fields[targetFieldLocation[0], targetFieldLocation[1]].Figure = this.playfield.Fields[selectedFigureLocation[0], selectedFigureLocation[1]].Figure;
             this.playfield.Fields[selectedFigureLocation[0], selectedFigureLocation[1]].Figure = null;
 
-            //set figure hiearchy
-            this.playfield.Fields[targetFieldLocation[0], targetFieldLocation[1]].Figure.Background.Parent = this.playfield.Fields[targetFieldLocation[0], targetFieldLocation[1]].Background;
+            //hit detection
+
+            if (Math.Abs(selectedFigureLocation[0] - targetFieldLocation[0]) == 2)
+            {
+                Hit((selectedFigureLocation[0] + targetFieldLocation[0]) / 2, (selectedFigureLocation[1] + targetFieldLocation[1]) / 2);
+            }
 
             if (this.isDebugMode) Console.WriteLine($"Figure moved");
-
-            for (int i = 0; i < this.playfield.Fields.GetLength(0); i++)
-            {
-                for (int j = 0; j < this.playfield.Fields.GetLength(1); j++)
-                {
-                    if (this.playfield.Fields[i, j].Figure != null)
-                    {
-                        if (this.playfield.Fields[i, j].Figure.Color == "dark")
-                        {
-                            Console.Write("(X)");
-                        } else
-                        {
-                            Console.Write("(O)");
-                        }
-                    } else
-                    {
-                        Console.Write("(*)");
-                    }
-                }
-                Console.WriteLine("");
-            }
         }
+
+        
 
         private void SearchDama()
         {
@@ -358,28 +336,13 @@ namespace DamaGame
                     {
                         if (this.playfield.Fields[i, j].Figure.Color == "dark" && i == 7)
                         {
-                            this.playfield.Fields[i, j].Figure.IsDama = true;
+                            this.playfield.Fields[i, j].Figure.TurnIntoDama();
                         }
 
                         if (this.playfield.Fields[i, j].Figure.Color == "light" && i == 0)
                         {
-                            this.playfield.Fields[i, j].Figure.IsDama = true;
+                            this.playfield.Fields[i, j].Figure.TurnIntoDama();
                         }
-                    }
-                }
-            }
-            if (this.isDebugMode) Console.WriteLine($"Dama founded");
-        }
-
-        private void RemoveComplusions()
-        {
-            for (int i = 0; i < this.playfield.Fields.GetLength(0); i++)
-            {
-                for (int j = 0; j < this.playfield.Fields.GetLength(1); j++)
-                {
-                    if (this.playfield.Fields[i, j].HasComplusion)
-                    {
-                        this.playfield.Fields[i, j].RemoveComplusions();
                     }
                 }
             }
@@ -387,11 +350,8 @@ namespace DamaGame
 
         private void Hit(int row, int col)
         {
-            if (this.playfield.Fields[row, col].Figure != null && this.playfield.Fields[row, col].Figure.Color != this.nextPlayer.Color)
-            {
-                this.playfield.Fields[row, col].Figure.Remove();
-                this.playfield.Fields[row, col].Figure = null;
-            }
+            this.playfield.Fields[row, col].Figure.Hit();
+            this.playfield.Fields[row, col].Figure = null;
         }
 
         public bool IsDebugMode => isDebugMode;

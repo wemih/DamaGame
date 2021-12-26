@@ -112,5 +112,17 @@
   <ItemGroup>
     <None Include="Assets\step.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\dama_0_selected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\dama_1_selected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\figure_0_selected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\figure_1_selected.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

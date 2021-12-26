@@ -18,3 +18,4 @@ E:\school\DamaGame\DamaGame\bin\Debug\DamaGame.exe
 E:\school\DamaGame\DamaGame\bin\Debug\DamaGame.pdb
 E:\school\DamaGame\DamaGame\obj\Debug\DamaGame.Form1.resources
 C:\Users\Idon't care\Source\Repos\DamaGame\DamaGame\obj\Debug\DamaGame.Form1.resources
+E:\school\DamaGame\DamaGame\obj\Debug\DamaGame.csproj.SuggestedBindingRedirects.cache
