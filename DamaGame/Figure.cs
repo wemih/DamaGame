@@ -32,6 +32,11 @@ namespace DamaGame
             this.background.Click += new EventHandler(Select);
         }
 
+        public bool IsEnabled()
+        {
+            return this.background.Enabled == true ? true : false;
+        }
+
         private void Select(object sender, EventArgs e)
         {
             this.isSelected = true;
