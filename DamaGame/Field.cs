@@ -62,13 +62,13 @@ namespace DamaGame
         public void EnableFieldForStep()
         {
             this.background.Enabled = true;
-            this.background.BackgroundImage = Properties.Resources.step;
+            this.background.BackgroundImage = Properties.Resources.Dama_babuk_zoldx;
         }
 
         public void EnableFieldForHit()
         {
             this.background.Enabled = true;
-            this.background.BackgroundImage = Properties.Resources.force;
+            this.background.BackgroundImage = Properties.Resources.Dama_babuk_priosx;
         }
 
         public void DisableField()

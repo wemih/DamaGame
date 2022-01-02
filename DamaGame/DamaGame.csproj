@@ -124,5 +124,17 @@
   <ItemGroup>
     <None Include="Assets\figure_1_selected.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\step.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Dama_babuk_priosx.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Dama_babuk_zoldx.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Dama_tabla_2.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

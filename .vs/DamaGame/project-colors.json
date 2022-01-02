@@ -5,6 +5,11 @@
       "ProjectGuid": "51fa71da-8cc5-4bdc-8a00-8a2a99bd47ab",
       "DisplayName": "DamaGame",
       "ColorIndex": 0
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
     }
   },
   "NextColorIndex": 1

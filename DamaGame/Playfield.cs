@@ -24,7 +24,7 @@ namespace DamaGame
                 Size = new Size(800, 800),
                 Location = new Point(300, 0),
                 BackgroundImageLayout = ImageLayout.Stretch,
-                BackgroundImage = Properties.Resources.board
+                BackgroundImage = Properties.Resources.Dama_tabla_2
             };
 
             AddFields();

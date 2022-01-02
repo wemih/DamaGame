@@ -157,4 +157,13 @@
   <data name="figure_1_selected" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\figure_1_selected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Dama_babuk_priosx" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Dama_babuk_priosx.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dama_babuk_zoldx" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Dama_babuk_zoldx.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dama_tabla_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Dama_tabla_2.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

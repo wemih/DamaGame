@@ -19,3 +19,14 @@ E:\school\DamaGame\DamaGame\bin\Debug\DamaGame.pdb
 E:\school\DamaGame\DamaGame\obj\Debug\DamaGame.Form1.resources
 C:\Users\Idon't care\Source\Repos\DamaGame\DamaGame\obj\Debug\DamaGame.Form1.resources
 E:\school\DamaGame\DamaGame\obj\Debug\DamaGame.csproj.SuggestedBindingRedirects.cache
+C:\Users\Username\Source\Repos\DamaGame\DamaGame\bin\Debug\DamaGame.exe.config
+C:\Users\Username\Source\Repos\DamaGame\DamaGame\bin\Debug\DamaGame.exe
+C:\Users\Username\Source\Repos\DamaGame\DamaGame\bin\Debug\DamaGame.pdb
+C:\Users\Username\Source\Repos\DamaGame\DamaGame\obj\Debug\DamaGame.csproj.AssemblyReference.cache
+C:\Users\Username\Source\Repos\DamaGame\DamaGame\obj\Debug\DamaGame.csproj.SuggestedBindingRedirects.cache
+C:\Users\Username\Source\Repos\DamaGame\DamaGame\obj\Debug\DamaGame.Form1.resources
+C:\Users\Username\Source\Repos\DamaGame\DamaGame\obj\Debug\DamaGame.Properties.Resources.resources
+C:\Users\Username\Source\Repos\DamaGame\DamaGame\obj\Debug\DamaGame.csproj.GenerateResource.cache
+C:\Users\Username\Source\Repos\DamaGame\DamaGame\obj\Debug\DamaGame.csproj.CoreCompileInputs.cache
+C:\Users\Username\Source\Repos\DamaGame\DamaGame\obj\Debug\DamaGame.exe
+C:\Users\Username\Source\Repos\DamaGame\DamaGame\obj\Debug\DamaGame.pdb

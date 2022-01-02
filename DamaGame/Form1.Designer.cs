@@ -53,6 +53,7 @@ namespace DamaGame
             // NewGameButtonLBL
             // 
             this.NewGameButtonLBL.AutoSize = true;
+            this.NewGameButtonLBL.BackColor = System.Drawing.Color.White;
             this.NewGameButtonLBL.Font = new System.Drawing.Font("Georgia", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.NewGameButtonLBL.Location = new System.Drawing.Point(16, 168);
             this.NewGameButtonLBL.Name = "NewGameButtonLBL";
@@ -64,6 +65,7 @@ namespace DamaGame
             // HowToPlayButtonLBL
             // 
             this.HowToPlayButtonLBL.AutoSize = true;
+            this.HowToPlayButtonLBL.BackColor = System.Drawing.Color.White;
             this.HowToPlayButtonLBL.Font = new System.Drawing.Font("Georgia", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.HowToPlayButtonLBL.Location = new System.Drawing.Point(16, 232);
             this.HowToPlayButtonLBL.Name = "HowToPlayButtonLBL";
@@ -75,6 +77,7 @@ namespace DamaGame
             // AboutButtonLBL
             // 
             this.AboutButtonLBL.AutoSize = true;
+            this.AboutButtonLBL.BackColor = System.Drawing.Color.White;
             this.AboutButtonLBL.Font = new System.Drawing.Font("Georgia", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.AboutButtonLBL.Location = new System.Drawing.Point(16, 296);
             this.AboutButtonLBL.Name = "AboutButtonLBL";
@@ -86,6 +89,7 @@ namespace DamaGame
             // ExitButtonLBL
             // 
             this.ExitButtonLBL.AutoSize = true;
+            this.ExitButtonLBL.BackColor = System.Drawing.Color.White;
             this.ExitButtonLBL.Font = new System.Drawing.Font("Georgia", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.ExitButtonLBL.ForeColor = System.Drawing.Color.Red;
             this.ExitButtonLBL.Location = new System.Drawing.Point(16, 360);
@@ -98,6 +102,7 @@ namespace DamaGame
             // PlayerNamesLBL
             // 
             this.PlayerNamesLBL.AutoSize = true;
+            this.PlayerNamesLBL.BackColor = System.Drawing.Color.White;
             this.PlayerNamesLBL.Font = new System.Drawing.Font("Arial", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.PlayerNamesLBL.Location = new System.Drawing.Point(496, 142);
             this.PlayerNamesLBL.Name = "PlayerNamesLBL";
@@ -127,6 +132,7 @@ namespace DamaGame
             // StartButtonLBL
             // 
             this.StartButtonLBL.AutoSize = true;
+            this.StartButtonLBL.BackColor = System.Drawing.Color.White;
             this.StartButtonLBL.Font = new System.Drawing.Font("Arial", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.StartButtonLBL.Location = new System.Drawing.Point(555, 416);
             this.StartButtonLBL.Name = "StartButtonLBL";
@@ -139,6 +145,7 @@ namespace DamaGame
             // PlayerNamesErrorLBL
             // 
             this.PlayerNamesErrorLBL.AutoSize = true;
+            this.PlayerNamesErrorLBL.BackColor = System.Drawing.Color.White;
             this.PlayerNamesErrorLBL.Font = new System.Drawing.Font("Arial", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.PlayerNamesErrorLBL.ForeColor = System.Drawing.Color.Maroon;
             this.PlayerNamesErrorLBL.Location = new System.Drawing.Point(418, 334);
@@ -150,6 +157,7 @@ namespace DamaGame
             // 
             // htpLBL01
             // 
+            this.htpLBL01.BackColor = System.Drawing.Color.White;
             this.htpLBL01.Font = new System.Drawing.Font("Georgia", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.htpLBL01.ForeColor = System.Drawing.Color.OrangeRed;
             this.htpLBL01.Location = new System.Drawing.Point(318, 23);
@@ -161,6 +169,7 @@ namespace DamaGame
             // 
             // htpLBL02
             // 
+            this.htpLBL02.BackColor = System.Drawing.Color.White;
             this.htpLBL02.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.htpLBL02.ForeColor = System.Drawing.Color.Black;
             this.htpLBL02.Location = new System.Drawing.Point(350, 78);
@@ -172,6 +181,7 @@ namespace DamaGame
             // 
             // htpLBL03
             // 
+            this.htpLBL03.BackColor = System.Drawing.Color.White;
             this.htpLBL03.Font = new System.Drawing.Font("Georgia", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.htpLBL03.ForeColor = System.Drawing.Color.Orange;
             this.htpLBL03.Location = new System.Drawing.Point(322, 229);
@@ -183,6 +193,7 @@ namespace DamaGame
             // 
             // htpLBL04
             // 
+            this.htpLBL04.BackColor = System.Drawing.Color.White;
             this.htpLBL04.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.htpLBL04.ForeColor = System.Drawing.Color.Black;
             this.htpLBL04.Location = new System.Drawing.Point(350, 264);
@@ -194,6 +205,7 @@ namespace DamaGame
             // 
             // aboutLBL01
             // 
+            this.aboutLBL01.BackColor = System.Drawing.Color.White;
             this.aboutLBL01.Font = new System.Drawing.Font("Georgia", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.aboutLBL01.ForeColor = System.Drawing.Color.Tomato;
             this.aboutLBL01.Location = new System.Drawing.Point(315, 109);
@@ -205,6 +217,7 @@ namespace DamaGame
             // 
             // aboutLBL02
             // 
+            this.aboutLBL02.BackColor = System.Drawing.Color.White;
             this.aboutLBL02.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.aboutLBL02.Location = new System.Drawing.Point(317, 152);
             this.aboutLBL02.Name = "aboutLBL02";
@@ -215,6 +228,7 @@ namespace DamaGame
             // 
             // aboutLBL03
             // 
+            this.aboutLBL03.BackColor = System.Drawing.Color.White;
             this.aboutLBL03.Font = new System.Drawing.Font("Georgia", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.aboutLBL03.ForeColor = System.Drawing.Color.Tomato;
             this.aboutLBL03.Location = new System.Drawing.Point(635, 109);
@@ -226,6 +240,7 @@ namespace DamaGame
             // 
             // aboutLBL04
             // 
+            this.aboutLBL04.BackColor = System.Drawing.Color.White;
             this.aboutLBL04.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.aboutLBL04.Location = new System.Drawing.Point(637, 152);
             this.aboutLBL04.Name = "aboutLBL04";
@@ -236,7 +251,7 @@ namespace DamaGame
             // 
             // backgroundPNL
             // 
-            this.backgroundPNL.BackgroundImage = global::DamaGame.Properties.Resources.background1;
+            this.backgroundPNL.BackColor = System.Drawing.Color.White;
             this.backgroundPNL.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.backgroundPNL.Location = new System.Drawing.Point(0, 0);
             this.backgroundPNL.Name = "backgroundPNL";
